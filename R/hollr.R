@@ -12,7 +12,7 @@
 #' @param max_length The maximum length of the input prompt (default is 1024, for local models only).
 #' @param max_new_tokens The maximum number of new tokens to generate (default is NULL, for local models only).
 #' @param system_message The message provided by the system (default is '').
-#' @param is_json_output A logical indicating whether the output should be JSON (default is TRUE).
+#' @param force_json A logical indicating whether the output should be JSON (default is TRUE).
 #' @param max_attempts The maximum number of attempts to make for generating valid output (default is 10).
 #' @param openai_api_key The API key for the OpenAI API (default is retrieved from environment variables).
 #' @param openai_organization The organization ID for the OpenAI API (default is NULL).
@@ -29,28 +29,24 @@
 #' @importFrom jsonlite fromJSON
 #' @export
 hollr <- function(id,
-                            user_message = '',
-                            annotators = 1,
-                            model,
-                            temperature = 1,
-                            top_p = 1,
-                            max_tokens = NULL,
-                            max_length = 1024,
-                            max_new_tokens = NULL,
-                            system_message = '',
-                  
-                            is_json_output = TRUE,
-                  
-                            max_attempts = 10,
-                            openai_api_key = Sys.getenv("OPENAI_API_KEY"),
-                            openai_organization = NULL,
-                            cores = 1) {
+                  user_message = '',
+                  annotators = 1,
+                  model,
+                  temperature = 1,
+                  top_p = 1,
+                  max_tokens = NULL,
+                  max_length = 1024,
+                  max_new_tokens = NULL,
+                  system_message = '',
+                  force_json = TRUE,
+                  flatten_json = TRUE,
+                  max_attempts = 10,
+                  openai_api_key = Sys.getenv("OPENAI_API_KEY"),
+                  openai_organization = NULL,
+                  cores = 1) {
+  
   # Determine if the model is OpenAI or local
   is_openai_model <- grepl("gpt-3.5-turbo|gpt-4|gpt-4o", model, ignore.case = TRUE)
-  
-  
-  
-  #
   
   # Prepare data
   text_df <- data.table::data.table(id = rep(id, annotators),
@@ -69,9 +65,11 @@ hollr <- function(id,
                                              max_tokens = max_tokens,
                                              openai_api_key = openai_api_key,
                                              openai_organization = openai_organization,
-                                             is_json_output = is_json_output)
+                                             force_json = force_json)
         
-        # ouptutabove is interesting -- includes all opanai json outputs -- a mistake -- but useful -- 
+        # may make more sense to output 'response' as json string here -- 
+        # if we wanted to include 'metadata' associated with openai api calls in output -- 
+        # at present, we return 'content' as json -- to match local implementation --
         parsed_output <- jsonlite::fromJSON(response)
         response <- parsed_output$choices$message$content
         
@@ -85,13 +83,16 @@ hollr <- function(id,
                                                  max_length,
                                                  max_new_tokens,
                                                  max_attempts,
-                                                 is_json_output)
+                                                 force_json)
       }
       
       response
     }
     
-    validation_result <- .validate_json_output(make_call, is_json_output, max_attempts)
+    validation_result <- .validate_json_output(make_call, 
+                                               force_json, 
+                                               max_attempts)
+    
     cleaned_response <- gsub("^```json|```$", "", validation_result$response) # valid json, but shite
     
     list(id = row$id,
@@ -104,15 +105,26 @@ hollr <- function(id,
   # Parallel processing
   if (cores > 1) {
     cl <- parallel::makeCluster(cores)
-    parallel::clusterExport(cl, varlist = c(".openai_chat_completions", ".is_valid_json", ".get_local_model", ".validate_json_output"), envir = environment())
-    results <- pbapply::pblapply(split(text_df, seq(nrow(text_df))), function(row) process_function(row), cl = cl)
+    parallel::clusterExport(cl, varlist = c(".openai_chat_completions", 
+                                            ".is_valid_json", 
+                                            ".get_local_model", 
+                                            ".validate_json_output"), 
+                            envir = environment())
+    
+    results <- pbapply::pblapply(split(text_df, seq(nrow(text_df))), 
+                                 function(row) process_function(row), cl = cl)
+    
     parallel::stopCluster(cl)
+    
   } else {
-    results <- pbapply::pblapply(split(text_df, seq(nrow(text_df))), function(row) process_function(row))
+    results <- pbapply::pblapply(split(text_df, seq(nrow(text_df))), 
+                                 function(row) process_function(row))
   }
   
   # Process results
-  processed_results <- .process_results(results, is_json_output)
+  processed_results <- .process_results(results, 
+                                        force_json, 
+                                        flatten_json)
   
   return(processed_results)
 }

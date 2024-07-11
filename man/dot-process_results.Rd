@@ -4,12 +4,12 @@
 \alias{.process_results}
 \title{Process Results from LLM Completions}
 \usage{
-.process_results(results, is_json_output)
+.process_results(results, force_json, flatten_json)
 }
 \arguments{
 \item{results}{A list of results to be processed.}
 
-\item{is_json_output}{A logical indicating whether the output should be JSON.}
+\item{force_json}{A logical indicating whether the output should be JSON.}
 }
 \value{
 A data.table containing the processed results.

@@ -13,7 +13,7 @@
   max_tokens = NULL,
   openai_api_key,
   openai_organization,
-  is_json_output = TRUE
+  force_json = TRUE
 )
 }
 \arguments{
@@ -33,7 +33,7 @@
 
 \item{openai_organization}{The organization ID for the OpenAI API.}
 
-\item{is_json_output}{A logical indicating whether the output should be JSON.}
+\item{force_json}{A logical indicating whether the output should be JSON.}
 
 \item{max_attempts}{The maximum number of attempts to make for generating valid output.}
 }

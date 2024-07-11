@@ -15,7 +15,8 @@ hollr(
   max_length = 1024,
   max_new_tokens = NULL,
   system_message = "",
-  is_json_output = TRUE,
+  force_json = TRUE,
+  flatten_json = TRUE,
   max_attempts = 10,
   openai_api_key = Sys.getenv("OPENAI_API_KEY"),
   openai_organization = NULL,
@@ -43,7 +44,7 @@ hollr(
 
 \item{system_message}{The message provided by the system (default is '').}
 
-\item{is_json_output}{A logical indicating whether the output should be JSON (default is TRUE).}
+\item{force_json}{A logical indicating whether the output should be JSON (default is TRUE).}
 
 \item{max_attempts}{The maximum number of attempts to make for generating valid output (default is 10).}
 

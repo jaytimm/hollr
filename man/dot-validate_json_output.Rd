@@ -4,12 +4,12 @@
 \alias{.validate_json_output}
 \title{Validate JSON Output and Track Metrics}
 \usage{
-.validate_json_output(make_call, is_json_output, max_attempts)
+.validate_json_output(make_call, force_json, max_attempts)
 }
 \arguments{
 \item{make_call}{A function that makes the API call or generates the output.}
 
-\item{is_json_output}{A logical indicating whether the output should be JSON.}
+\item{force_json}{A logical indicating whether the output should be JSON.}
 
 \item{max_attempts}{The maximum number of attempts to make for generating valid output.}
 }

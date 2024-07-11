@@ -32,16 +32,18 @@
 #' ensuring consistent structure and output.
 #'
 #' @param results A list of results to be processed.
-#' @param is_json_output A logical indicating whether the output should be JSON.
+#' @param force_json A logical indicating whether the output should be JSON.
 #' @return A data.table containing the processed results.
 #' @import data.table
-.process_results <- function(results, is_json_output) {
+.process_results <- function(results, force_json, flatten_json) {
   processed_list <- lapply(results, function(element) {
     # Initialize an empty list for the response
     response_list <- list()
     
     # Check if JSON output is expected and the response is a character
-    if (is_json_output && is.character(element$response)) {
+    # if (force_json && is.character(element$response)) {
+    if (flatten_json && is.character(element$response)) {
+      
       response_list <- tryCatch({
         jsonlite::fromJSON(element$response)  # Directly return the parsed JSON
       }, error = function(e) {
@@ -66,7 +68,8 @@
   
   # Combine all data tables into a single data table and ensure id is the first column
   df <- data.table::rbindlist(processed_list, fill = TRUE)
-  data.table::setcolorder(df, c("id", "annotator_id", "attempts", "success", names(df)[!(names(df) %in% c("id", "annotator_id", "attempts", "success"))]))
+  data.table::setcolorder(df, c("id", "annotator_id", "attempts", "success", 
+                                names(df)[!(names(df) %in% c("id", "annotator_id", "attempts", "success"))]))
   
   return(df)
 }
@@ -81,21 +84,21 @@
 #' It also tracks the number of attempts required for successful JSON validation.
 #'
 #' @param make_call A function that makes the API call or generates the output.
-#' @param is_json_output A logical indicating whether the output should be JSON.
+#' @param force_json A logical indicating whether the output should be JSON.
 #' @param max_attempts The maximum number of attempts to make for generating valid output.
 #' @return A list containing the validated JSON output (or NA if validation fails) and the number of attempts.
 #' @importFrom jsonlite fromJSON
 #' @importFrom httr content
 
 .validate_json_output <- function(make_call,
-                                  is_json_output,
+                                  force_json,
                                   max_attempts) {
   attempt <- 1  # Initialize the attempt counter
 
   while (attempt <= max_attempts) {
     output <- make_call()  # Call the make_call function to get output
 
-    if (is_json_output) {  # Check if JSON output is expected
+    if (force_json) {  # Check if JSON output is expected
       if (.is_valid_json(output)) {
         return(list(response = output,
                     attempts = attempt,
@@ -134,7 +137,7 @@
 #' @param max_tokens The maximum number of tokens to generate.
 #' @param openai_api_key The API key for the OpenAI API.
 #' @param openai_organization The organization ID for the OpenAI API.
-#' @param is_json_output A logical indicating whether the output should be JSON.
+#' @param force_json A logical indicating whether the output should be JSON.
 #' @param max_attempts The maximum number of attempts to make for generating valid output.
 #' @return The generated text.
 #' @importFrom httr POST add_headers content http_error status_code
@@ -148,7 +151,7 @@
                                      max_tokens = NULL,
                                      openai_api_key,
                                      openai_organization,
-                                     is_json_output = TRUE) {
+                                     force_json = TRUE) {
   
   if (is.null(openai_api_key) || openai_api_key == "") {
     stop("OpenAI API key is missing.", call. = FALSE)
