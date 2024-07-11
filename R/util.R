@@ -5,7 +5,8 @@
 #' @param json_string The string to validate.
 #' @return TRUE if the string is valid JSON, FALSE otherwise.
 #' @importFrom jsonlite fromJSON
-#' @export
+#' @noRd
+
 .is_valid_json <- function(json_string) {
   tryCatch({ jsonlite::fromJSON(json_string); TRUE }, error = function(e) { FALSE })
 }
@@ -19,7 +20,7 @@
 #'
 #' @param n The number of IDs to generate.
 #' @return A vector of random IDs.
-#' @export
+#' @noRd
 .generate_random_ids <- function(n) {
   replicate(n, paste0(sample(c(0:9, letters, LETTERS), 10, replace = TRUE), collapse = ""))
 }
@@ -35,6 +36,7 @@
 #' @param force_json A logical indicating whether the output should be JSON.
 #' @return A data.table containing the processed results.
 #' @import data.table
+#' @noRd
 .process_results <- function(results, force_json, flatten_json) {
   processed_list <- lapply(results, function(element) {
     # Initialize an empty list for the response
@@ -89,6 +91,7 @@
 #' @return A list containing the validated JSON output (or NA if validation fails) and the number of attempts.
 #' @importFrom jsonlite fromJSON
 #' @importFrom httr content
+#' @noRd
 
 .validate_json_output <- function(make_call,
                                   force_json,
@@ -142,7 +145,7 @@
 #' @return The generated text.
 #' @importFrom httr POST add_headers content http_error status_code
 #' @importFrom jsonlite fromJSON
-#' @export
+#' @noRd
 .openai_chat_completions <- function(model = 'gpt-3.5-turbo',
                                      system_message = '',
                                      user_message = '',
@@ -192,7 +195,7 @@
 #' @param model_name The name of the model to initialize.
 #' @return The initialized local model pipeline.
 #' @importFrom reticulate source_python
-#' @export
+#' @noRd
 .get_local_model <- function(model) {
   if (exists("local_model_pipeline", envir = .GlobalEnv)) {
     return(get("local_model_pipeline", envir = .GlobalEnv))
