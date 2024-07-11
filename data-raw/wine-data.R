@@ -1,13 +1,5 @@
----
-title: "Untitled"
-output: html_document
-date: "2024-07-10"
----
 
 
-
-
-```{r}
 wine1 <- read.csv('/home/jtimm/pCloudDrive/recipes/wine-corpus/winemag-data_first150k.csv')
 
 # Replace empty strings with NA
@@ -26,6 +18,4 @@ wine <- wine_filtered[sample(nrow(wine_filtered), 250), ]
 # save(ws, file = "data/wine.rda")
 
 # Use usethis to save the dataset
-usethis::use_data(wine, overwrite = TRUE)
-```
-
+usethis::use_data(wine, overwrite = TRUE, internal = FALSE)

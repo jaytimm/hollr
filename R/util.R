@@ -35,7 +35,6 @@
 #' @param results A list of results to be processed.
 #' @param force_json A logical indicating whether the output should be JSON.
 #' @return A data.table containing the processed results.
-#' @import data.table
 #' @noRd
 .process_results <- function(results, force_json, flatten_json) {
   processed_list <- lapply(results, function(element) {

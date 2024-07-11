@@ -1,4 +1,4 @@
-#' Wine Sample Dataset
+#' Wine Sample Dataset-
 #'
 #' This dataset contains a sample of 250 wines with various attributes.
 #'

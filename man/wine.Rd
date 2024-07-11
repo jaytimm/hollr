@@ -3,7 +3,7 @@
 \docType{data}
 \name{wine}
 \alias{wine}
-\title{Wine Sample Dataset}
+\title{Wine Sample Dataset-}
 \format{
 A data frame with 250 rowine and the following columns:
 \describe{
