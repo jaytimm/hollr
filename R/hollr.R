@@ -102,12 +102,12 @@ hollr <- function(id,
          success = validation_result$success)
   }
   
-  # Parallel processing
-  if (cores > 1) {
+  # Parallel processing for OpenAI cloud-based models only -- 
+  if (cores > 1 & is_openai_model) {
+    
     cl <- parallel::makeCluster(cores)
     parallel::clusterExport(cl, varlist = c(".openai_chat_completions", 
                                             ".is_valid_json", 
-                                            ".get_local_model", 
                                             ".validate_json_output"), 
                             envir = environment())
     
@@ -116,10 +116,14 @@ hollr <- function(id,
     
     parallel::stopCluster(cl)
     
-  } else {
+  } else { # cores = 1 and model = cloud. or model = local AND batch_size = 1
     results <- pbapply::pblapply(split(text_df, seq(nrow(text_df))), 
                                  function(row) process_function(row))
   }
+  
+  # model = local AND batch_size > 1
+  # results <- pbapply::pblapply(split(text_df, seq(1, nrow(text_df), by=batch_size)), 
+  # function(rows) process_function(rows))
   
   # Process results
   processed_results <- .process_results(results, 
