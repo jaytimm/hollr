@@ -46,7 +46,7 @@ hollr <- function(id,
                   cores = 1) {
   
   # Determine if the model is OpenAI or local
-  is_openai_model <- grepl("gpt-3.5-turbo|gpt-4|gpt-4o", model, ignore.case = TRUE)
+  is_openai_model <- grepl("gpt-3.5-turbo|gpt-4|gpt-4o|gpt-4o-mini", model, ignore.case = TRUE)
   
   # Prepare data
   text_df <- data.table::data.table(id = rep(id, annotators),
