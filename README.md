@@ -6,8 +6,8 @@ annotation, text-to-json, and consistent data frame output.
 
 ## Features
 
-**Versatile Model Integration**: Seamlessly generate text using OpenAI
-models like GPT-3.5 and GPT-4, or local models, via a single function.
+**Versatile Model Integration**: Seamlessly access OpenAI models like
+gpt-4o and gpt-4o-mini, or local models, via a single function.
 
 **Multiple Annotators**: Support for multiple annotators to handle
 ensembling methods and majority voting, improving the reliability and
