@@ -1,8 +1,8 @@
 # hollr
 
-An R package that provides a simple interface for text completion via
-either the OpenAI API or local language models – with a focus on text
-annotation, text-to-json, etc.
+An R package that provides a single, simple interface for text
+completion via the OpenAI API and local LLMs – with a focus on text
+annotation, text-to-json, and consistent data frame output.
 
 ## Features
 
@@ -22,5 +22,4 @@ different models.
 **Prompt Diagnostics**: Includes basic prompt diagnostics to help
 understand and improve the input prompts.
 
-**Robust JSON Handling**: Ensures consistent and valid JSON output, with
-multiple attempts to generate correct responses.
+**Robust JSON Handling**: Ensures consistent and valid JSON output.
