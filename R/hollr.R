@@ -83,8 +83,7 @@ hollr <- function(id,
                                                  temperature,
                                                  max_length,
                                                  max_new_tokens,
-                                                 max_attempts,
-                                                 force_json)
+                                                 max_attempts)
       }
       
       response

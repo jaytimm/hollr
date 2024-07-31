@@ -6,20 +6,19 @@ annotation, text-to-json, and consistent data frame output.
 
 ## Features
 
-**Versatile Model Integration**: Seamlessly access OpenAI models like
-gpt-4o and gpt-4o-mini, or local models, via a single function.
+**Versatile Model Integration**: Facilitates seamless access to both
+cloud-based and local LLMs via a single function.
 
-**Multiple Annotators**: Support for multiple annotators to handle
-ensembling methods and majority voting, improving the reliability and
-accuracy of text completions.
+**Multiple Annotators**: Supports multiple annotators to handle
+ensembling methods and majority voting.
 
-**Parallel Processing**: Leverage multiple cores for faster processing
+**Parallel Processing**: Leverages multiple cores for faster processing
 with cloud-based models.
 
 **Consistent Output**: Provides a consistent data frame output across
-different models.
+different models.\*
 
 **Prompt Diagnostics**: Includes basic prompt diagnostics to help
-understand and improve the input prompts.
+understand and improve input prompts.
 
 **Robust JSON Handling**: Ensures consistent and valid JSON output.
