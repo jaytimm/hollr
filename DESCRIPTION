@@ -5,21 +5,17 @@ Version: 1.0.0
 Author: Jason Timm [aut, cre]
 Maintainer: Jason Timm <JaTimm@salud.unm.edu>
 Description: Local and cloud-based chat completions
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: 
     R (>= 3.5)
 Imports: 
     data.table,
-    httr,
-    Matrix,
-    rvest,
-    stringi, 
+    httr, 
     jsonlite,
-    stringr,
-    xml2,
-    pbapply
+    pbapply,
+    reticulate
 RoxygenNote: 7.3.1
 URL: https://github.com/jaytimm/textpress, https://jaytimm.github.io/textpress/
 BugReports: https://github.com/jaytimm/textpress/issues

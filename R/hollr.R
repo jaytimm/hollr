@@ -13,6 +13,7 @@
 #' @param max_new_tokens The maximum number of new tokens to generate (default is NULL, for local models only).
 #' @param system_message The message provided by the system (default is '').
 #' @param force_json A logical indicating whether the output should be JSON (default is TRUE).
+#' @param flatten_json A logical indicating whether the output should be converted to DF (default is TRUE).
 #' @param max_attempts The maximum number of attempts to make for generating valid output (default is 10).
 #' @param openai_api_key The API key for the OpenAI API (default is retrieved from environment variables).
 #' @param openai_organization The organization ID for the OpenAI API (default is NULL).
@@ -75,7 +76,7 @@ hollr <- function(id,
         
         
       } else {
-        reticulate::source_python(system.file("python", "llm_functions.py", package = "textpress"))
+        reticulate::source_python(system.file("python", "llm_functions.py", package = "hollr"))
         model_pipeline <- .get_local_model(model)
         response <- reticulate::py$generate_text(model_pipeline,
                                                  row$user_message,

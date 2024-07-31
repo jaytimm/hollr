@@ -46,6 +46,8 @@ hollr(
 
 \item{force_json}{A logical indicating whether the output should be JSON (default is TRUE).}
 
+\item{flatten_json}{A logical indicating whether the output should be converted to DF (default is TRUE).}
+
 \item{max_attempts}{The maximum number of attempts to make for generating valid output (default is 10).}
 
 \item{openai_api_key}{The API key for the OpenAI API (default is retrieved from environment variables).}
