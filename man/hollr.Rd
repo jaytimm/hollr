@@ -20,7 +20,8 @@ hollr(
   max_attempts = 10,
   openai_api_key = Sys.getenv("OPENAI_API_KEY"),
   openai_organization = NULL,
-  cores = 1
+  cores = 1,
+  batch_size = 1
 )
 }
 \arguments{
@@ -55,6 +56,8 @@ hollr(
 \item{openai_organization}{The organization ID for the OpenAI API (default is NULL).}
 
 \item{cores}{The number of cores to use for parallel processing (default is 1).}
+
+\item{batch_size}{The number of batch_size to process (default is 1, only for local models).}
 }
 \value{
 A data.table containing the generated text and metadata.

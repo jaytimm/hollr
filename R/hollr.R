@@ -18,6 +18,7 @@
 #' @param openai_api_key The API key for the OpenAI API (default is retrieved from environment variables).
 #' @param openai_organization The organization ID for the OpenAI API (default is NULL).
 #' @param cores The number of cores to use for parallel processing (default is 1).
+#' @param batch_size The number of batch_size to process (default is 1, only for local models).
 #' @return A data.table containing the generated text and metadata.
 #' @examples
 #' \dontrun{
@@ -44,10 +45,25 @@ hollr <- function(id,
                   max_attempts = 10,
                   openai_api_key = Sys.getenv("OPENAI_API_KEY"),
                   openai_organization = NULL,
-                  cores = 1) {
+                  cores = 1,
+                  batch_size = 1) {
   
   # Determine if the model is OpenAI or local
   is_openai_model <- grepl("gpt-3.5-turbo|gpt-4|gpt-4o|gpt-4o-mini", model, ignore.case = TRUE)
+  
+  if (!is_openai_model && batch_size > 1) {
+    # Run the local model with batch processing
+    return(hollr_local_batches(id = id,
+                               user_message = user_message,
+                               annotators = annotators,
+                               model = model,
+                               temperature = temperature,
+                               top_p = top_p,
+                               max_new_tokens = max_new_tokens,
+                               max_length = max_length,
+                               system_message = system_message,
+                               batch_size = batch_size))
+  }
   
   # Prepare data
   text_df <- data.table::data.table(id = rep(id, annotators),
@@ -68,12 +84,8 @@ hollr <- function(id,
                                              openai_organization = openai_organization,
                                              force_json = force_json)
         
-        # may make more sense to output 'response' as json string here -- 
-        # if we wanted to include 'metadata' associated with openai api calls in output -- 
-        # at present, we return 'content' as json -- to match local implementation --
         parsed_output <- jsonlite::fromJSON(response)
         response <- parsed_output$choices$message$content
-        
         
       } else {
         reticulate::source_python(system.file("python", "llm_functions.py", package = "hollr"))
@@ -93,7 +105,7 @@ hollr <- function(id,
                                                force_json, 
                                                max_attempts)
     
-    cleaned_response <- gsub("^```json|```$", "", validation_result$response) # valid json, but shite
+    cleaned_response <- gsub("^```json|```$", "", validation_result$response)
     
     list(id = row$id,
          annotator_id = row$annotator_id,
@@ -102,7 +114,7 @@ hollr <- function(id,
          success = validation_result$success)
   }
   
-  # Parallel processing for OpenAI cloud-based models only -- 
+  # Parallel processing for OpenAI cloud-based models only
   if (cores > 1 & is_openai_model) {
     
     cl <- parallel::makeCluster(cores)
@@ -120,10 +132,6 @@ hollr <- function(id,
     results <- pbapply::pblapply(split(text_df, seq(nrow(text_df))), 
                                  function(row) process_function(row))
   }
-  
-  # model = local AND batch_size > 1
-  # results <- pbapply::pblapply(split(text_df, seq(1, nrow(text_df), by=batch_size)), 
-  # function(rows) process_function(rows))
   
   # Process results
   processed_results <- .process_results(results, 
