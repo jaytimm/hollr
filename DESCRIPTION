@@ -1,10 +1,10 @@
 Package: hollr
 Type: Package
-Title: "A lightweight & versatile NLP companion in R."
+Title: "A lightweight, versatile tool for text completion via local and cloud-based LLMs in R."
 Version: 1.0.0
 Author: Jason Timm [aut, cre]
 Maintainer: Jason Timm <JaTimm@salud.unm.edu>
-Description: Local and cloud-based chat completions
+Description: A lightweight tool that provides a unified interface for text completion using local and cloud-based LLMs, with features for text annotation, text-to-JSON conversion, and consistent data frame output.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -17,5 +17,6 @@ Imports:
     pbapply,
     reticulate
 RoxygenNote: 7.3.1
-URL: https://github.com/jaytimm/textpress, https://jaytimm.github.io/textpress/
-BugReports: https://github.com/jaytimm/textpress/issues
+URL: https://github.com/jaytimm/hollr, https://jaytimm.github.io/hollr/
+BugReports: https://github.com/jaytimm/hollr/issues
+

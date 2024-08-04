@@ -1,8 +1,8 @@
 # hollr
 
-An R package that provides a single, simple interface for text
-completion via the OpenAI API and local LLMs – with a focus on text
-annotation, text-to-json, and consistent data frame output.
+A lightweight tool that provides a unified interface for text completion
+using local and cloud-based LLMs, with features for text annotation,
+text-to-JSON conversion, and consistent data frame output.
 
 ## Features
 
@@ -11,6 +11,9 @@ cloud-based and local LLMs via a single function.
 
 **Multiple Annotators**: Supports multiple annotators to handle
 ensembling methods and majority voting.
+
+**Batch Processing for Local LLMs**: Enables batch processing to handle
+multiple inputs simultaneously
 
 **Parallel Processing**: Leverages multiple cores for faster processing
 with cloud-based models.

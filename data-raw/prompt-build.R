@@ -1,5 +1,5 @@
 # List text files in the specified directory
-files <- fs::dir_ls("/home/jtimm/pCloudDrive/GitHub/packages/prompts/prompts", regexp = "\\.txt$")
+files <- fs::dir_ls("/home/jtimm/pCloudDrive/GitHub/packages/hollr/data-raw/prompts", regexp = "\\.txt$")
 
 # Read each file into a character vector
 prompts <- lapply(files, readLines, warn = FALSE)
