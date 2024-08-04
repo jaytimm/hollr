@@ -67,6 +67,9 @@ This function generates text using either the OpenAI API or a local model.
 }
 \examples{
 \dontrun{
-hollr(id = "example_id", user_message = "What is the capital of France?", model = "gpt-3.5-turbo", openai_api_key = "your_api_key")
+hollr(id = "example_id", 
+user_message = "What is the capital of France?", 
+model = "gpt-3.5-turbo", 
+openai_api_key = "your_api_key")
 }
 }

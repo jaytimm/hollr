@@ -15,7 +15,9 @@
 #' @return A list containing the generated responses for each batch.
 #' @examples
 #' \dontrun{
-#' hollr_local_batches(id = "example_id", user_message = "Hello, how are you?", model = "local_model")
+#' hollr_local_batches(id = "example_id", 
+#' user_message = "Hello, how are you?", 
+#' model = "local_model")
 #' }
 #' @import data.table
 #' @importFrom reticulate source_python py

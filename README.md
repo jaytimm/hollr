@@ -1,8 +1,8 @@
 # hollr
 
-A lightweight tool that provides a unified interface for text completion
-using local and cloud-based LLMs, with features for text annotation,
-text-to-JSON conversion, and consistent data frame output.
+A lightweight R package that provides a unified interface for text
+completion using local and cloud-based LLMs, with features for text
+annotation, text-to-JSON conversion, and consistent data frame output.
 
 ## Features
 
@@ -19,7 +19,7 @@ multiple inputs simultaneously
 with cloud-based models.
 
 **Consistent Output**: Provides a consistent data frame output across
-different models.\*
+different models.
 
 **Prompt Diagnostics**: Includes basic prompt diagnostics to help
 understand and improve input prompts.

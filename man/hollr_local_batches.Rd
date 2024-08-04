@@ -46,6 +46,8 @@ This function generates text in batches using a local model.
 }
 \examples{
 \dontrun{
-hollr_local_batches(id = "example_id", user_message = "Hello, how are you?", model = "local_model")
+hollr_local_batches(id = "example_id", 
+user_message = "Hello, how are you?", 
+model = "local_model")
 }
 }

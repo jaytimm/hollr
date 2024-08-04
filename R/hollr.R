@@ -22,7 +22,10 @@
 #' @return A data.table containing the generated text and metadata.
 #' @examples
 #' \dontrun{
-#' hollr(id = "example_id", user_message = "What is the capital of France?", model = "gpt-3.5-turbo", openai_api_key = "your_api_key")
+#' hollr(id = "example_id", 
+#' user_message = "What is the capital of France?", 
+#' model = "gpt-3.5-turbo", 
+#' openai_api_key = "your_api_key")
 #' }
 #' @import data.table
 #' @importFrom parallel makeCluster clusterExport stopCluster

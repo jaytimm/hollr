@@ -196,11 +196,11 @@
 #' @importFrom reticulate source_python
 #' @noRd
 .get_local_model <- function(model) {
-  if (exists("local_model_pipeline", envir = .GlobalEnv)) {
-    return(get("local_model_pipeline", envir = .GlobalEnv))
+  if (exists("local_model_pipeline", envir = .hollrEnv)) {
+    return(get("local_model_pipeline", envir = .hollrEnv))
   } else {
     local_model_pipeline <- reticulate::py$initialize_model(model)
-    assign("local_model_pipeline", local_model_pipeline, envir = .GlobalEnv)
+    .hollrEnv$local_model_pipeline <- local_model_pipeline
     return(local_model_pipeline)
   }
 }

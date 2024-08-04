@@ -1,6 +1,0 @@
----
-output:
-  md_document:
-    variant: markdown_github
-always_allow_html: true
----

@@ -1,42 +1,5 @@
 
 
-# def initialize_model(model_name):
-#     """
-#     Initialize a text generation model using the Hugging Face transformers library.
-# 
-#     Args:
-#         model_name (str): The name of the pre-trained model to load.
-# 
-#     Returns:
-#         pipeline: A text generation pipeline using the specified model and tokenizer.
-#     """
-#     # Import necessary libraries
-#     import os
-#     from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-#     import torch
-# 
-#     # Load the tokenizer for the specified model
-#     tokenizer = AutoTokenizer.from_pretrained(model_name)
-# 
-#     # Load the model with specific configurations
-#     model = AutoModelForCausalLM.from_pretrained(
-#         model_name,
-#         torch_dtype=torch.float16,           # Use float16 for faster inference
-#         attn_implementation="flash_attention_2", # Use flash attention 2 for better performance
-#         device_map="cuda:0"                  # Map the model to the first CUDA device (GPU)
-#     )
-# 
-#     # Create a text generation pipeline with the model and tokenizer
-#     model_pipeline = pipeline(
-#         "text-generation",
-#         model=model,
-#         tokenizer=tokenizer
-#     )
-# 
-#     return model_pipeline  # Return the text generation pipeline
-  
-  
-
 def initialize_model(model_name):
     """
     Initialize a text generation model using the Hugging Face transformers library.
