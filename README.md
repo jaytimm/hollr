@@ -1,8 +1,8 @@
 # hollr
 
-A lightweight R package that provides a unified interface for text
-completion using local and cloud-based LLMs, with features for text
-annotation, text-to-JSON conversion, and consistent data frame output.
+An R package offering a unified interface for text completion through
+local and cloud-based LLMs, with a particular emphasis on text
+annotation tasks.
 
 #### Features
 
