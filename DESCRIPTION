@@ -4,7 +4,7 @@ Title: "A lightweight, versatile tool for text completion via local and cloud-ba
 Version: 1.0.0
 Author: Jason Timm [aut, cre]
 Maintainer: Jason Timm <JaTimm@salud.unm.edu>
-Description: A lightweight tool that provides a unified interface for text completion using local and cloud-based LLMs, with features for text annotation, text-to-JSON conversion, and consistent data frame output.
+Description: A lightweight tool that provides a unified interface for text completion using local and cloud-based LLMs, with a focus on text annotation tasks.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

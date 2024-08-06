@@ -2,6 +2,7 @@
 
 export(hollr)
 export(hollr_local_batches)
+export(pretty_prompt)
 import(data.table)
 importFrom(httr,POST)
 importFrom(httr,add_headers)
