@@ -29,8 +29,6 @@ and cloud-based LLMs, tailored for text annotation tasks.
 
 ## Conda environment & reticulate
 
-> May want to rename environment as `hollr`.
-
 ``` bash
 # Create and activate a new conda environment with Python 3.9
 conda create -n llm_base python=3.9 -y
@@ -137,33 +135,18 @@ hollr::pretty_prompt(hollr::prompts$FeaturizeTextYN)
 ### Sample data
 
 ``` r
-# Vectorized function to truncate a vector of abstracts by words and add ellipses
-truncate_abstract_vector <- function(abstracts, n) {
-  truncated <- vapply(strsplit(abstracts, " "), function(words) {
-    if (length(words) > n) {
-      paste(c(words[1:n], "..."), collapse = " ")
-    } else {
-      paste(words, collapse = " ")
-    }
-  }, character(1))
-  return(truncated)
-}
-
 # Use the function to truncate the abstract column
 pic <- hollr::political_ideology
 pic$ab <- truncate_abstract_vector(pic$abstract, 20)
 pic |> dplyr::select(pmid, year, articletitle, ab) |> 
-  head() |> knitr::kable()
+  head(3) |> knitr::kable()
 ```
 
-| pmid     | year | articletitle                                                                                                                                                  | ab                                                                                                                                                        |
-|:--|:--|:---------------------------------|:--------------------------------|
-| 30247057 | 2018 | Prior exposure increases perceived accuracy of fake news.                                                                                                     | The 2016 U.S. presidential election brought considerable attention to the phenomenon of “fake news”: entirely fabricated and often partisan content …     |
-| 37947551 | 2023 | Public Health Policy, Political Ideology, and Public Emotion Related to COVID-19 in the U.S.                                                                  | Social networks, particularly Twitter 9.0 (known as X as of 23 July 2023), have provided an avenue for prompt interactions …                              |
-| 28895229 | 2017 | Crisis and Change: The Making of a French FDA.                                                                                                                | Policy Points: Introducing a recent special issue of The Lancet on the health system in France, Horton and Ceschia observe …                              |
-| 34341651 | 2023 | The influence of gain-loss framing and its interaction with political ideology on social distancing and mask wearing compliance during the COVID-19 pandemic. | The COVID-19 pandemic has caused millions of cases and over half a million deaths in the United States. While health …                                    |
-| 25316309 | 2015 | How do economic evaluations inform health policy decisions for treatment and prevention in Canada and the United States?                                      | Canadian and US health systems have often been characterized as having vastly different approaches to the financing and delivery of …                     |
-| 22904584 | 2012 | Disentangling the Importance of Psychological Predispositions and Social Constructions in the Organization of American Political Ideology.                    | Ideological preferences within the American electorate are contingent on both the environmental conditions that provide the content of the contemporary … |
+| pmid     | year | articletitle                                                                                 | ab                                                                                                                                                    |
+|:---|:--|:-------------------------|:----------------------------------------|
+| 30247057 | 2018 | Prior exposure increases perceived accuracy of fake news.                                    | The 2016 U.S. presidential election brought considerable attention to the phenomenon of “fake news”: entirely fabricated and often partisan content … |
+| 37947551 | 2023 | Public Health Policy, Political Ideology, and Public Emotion Related to COVID-19 in the U.S. | Social networks, particularly Twitter 9.0 (known as X as of 23 July 2023), have provided an avenue for prompt interactions …                          |
+| 28895229 | 2017 | Crisis and Change: The Making of a French FDA.                                               | Policy Points: Introducing a recent special issue of The Lancet on the health system in France, Horton and Ceschia observe …                          |
 
 ``` r
 class_task_prompt <- paste(paste(hollr::prompts$FeaturizeTextYN, 
@@ -192,16 +175,16 @@ class_task1 |> knitr::kable()
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | bezp0zz2js   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | bezp0zz2js   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | bezp0zz2js   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 22904584 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 33199928 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
+| 30247057 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | DSNpf9a0g5   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 22904584 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 33199928 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
 
 ### Parallel processing
 
@@ -216,19 +199,7 @@ class_task2 <- hollr::hollr(
   force_json = T,
   flatten_json = T
   )
-
-class_task2 |> dplyr::arrange(id, annotator_id) |> 
-  head() |> knitr::kable()
 ```
-
-| id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
-|:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 22904584 | Mste0fVFbz   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 22904584 | w0dL5LYIEE   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 22904584 | z4Bl0Ltwgt   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 25316309 | Mste0fVFbz   |        1 | TRUE    | FALSE    | FALSE       | TRUE     | TRUE          | FALSE               |
-| 25316309 | w0dL5LYIEE   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 25316309 | z4Bl0Ltwgt   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
 
 ## Local LLMs
 
