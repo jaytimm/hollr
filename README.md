@@ -152,13 +152,13 @@ pic |> dplyr::select(pmid, year, articletitle, ab) |>
 | 37947551 | 2023 | Public Health Policy, Political Ideology, and Public Emotion Related to COVID-19 in the U.S. | Social networks, particularly Twitter 9.0 (known as X as of 23 July 2023), have provided an avenue for prompt interactions …                          |
 | 28895229 | 2017 | Crisis and Change: The Making of a French FDA.                                               | Policy Points: Introducing a recent special issue of The Lancet on the health system in France, Horton and Ceschia observe …                          |
 
+## Cloud-based LLMs
+
 ``` r
 class_task_prompt <- paste(paste(hollr::prompts$FeaturizeTextYN, 
                                  'Abstract:', sep = '\n\n'),
                            hollr::political_ideology$abstract, sep = '\n')
 ```
-
-## Cloud-based LLMs
 
 ### Force JSON
 
@@ -179,16 +179,16 @@ class_task1 |> knitr::kable()
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | jt8h0KxV4n   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 22904584 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | TRUE          | FALSE               |
-| 33199928 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 30247057 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | PJniT5IsvD   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | PJniT5IsvD   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | PJniT5IsvD   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 25316309 | PJniT5IsvD   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 22904584 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | TRUE          | FALSE               |
+| 33199928 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
 
 ### Parallel processing
 
@@ -215,7 +215,7 @@ llm = 'meta-llama/Meta-Llama-3.1-8B-Instruct'
 
 ``` r
 local_seq <- hollr::hollr(
-  model = 'meta-llama/Meta-Llama-3.1-8B-Instruct',
+  model = llm,
   id = hollr::political_ideology$pmid[1:10],
   user_message = class_task_prompt[1:10], 
   # cores = 7, 
@@ -232,7 +232,7 @@ local_seq <- hollr::hollr(
 
 ``` r
 batch_seq <- hollr::hollr(
-  model = 'meta-llama/Meta-Llama-3.1-8B-Instruct',
+  model = llm,
   id = hollr::political_ideology$pmid[1:10],
   user_message = class_task_prompt[1:10], 
   # cores = 7, 
