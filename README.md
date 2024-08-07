@@ -59,7 +59,7 @@ reticulate::use_condaenv(condaenv = env_name, conda = file.path(miniconda_path, 
 > `hollr` includes some sample prompts and text data.
 
 ``` r
-hollr::pretty_prompt(hollr::prompts$FeaturizeTextYN)
+pretty_prompt(hollr::prompts$FeaturizeTextYN)
 ```
 
     ## Role
@@ -179,16 +179,16 @@ class_task1 |> knitr::kable()
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | PJniT5IsvD   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | PJniT5IsvD   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | PJniT5IsvD   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 25316309 | PJniT5IsvD   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 22904584 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | TRUE          | FALSE               |
-| 33199928 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | PJniT5IsvD   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
+| 30247057 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | UPo2EAwCka   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | UPo2EAwCka   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | UPo2EAwCka   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 22904584 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | TRUE          | FALSE               |
+| 33199928 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
 
 ### Parallel processing
 
