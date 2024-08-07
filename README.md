@@ -92,7 +92,11 @@ hollr::pretty_prompt(hollr::prompts$FeaturizeTextYN)
     ## misinfo_media_trust: Does the abstract discuss
     ## misinformation, media impact, or trust in
     ## government/public institutions?
-    ## Example Input
+    ## 
+    ## 
+    ## 
+    ## Example Input:
+    ## 
     ## "Personal similarities to a transgressor makes
     ## one view the transgression as less immoral. We
     ## investigated whether personal relevance might
@@ -122,7 +126,7 @@ hollr::pretty_prompt(hollr::prompts$FeaturizeTextYN)
     ## 
     ## 
     ## 
-    ## Expected Output
+    ## Expected Output:
     ## 
     ## {
     ## "pol_ideo": true,
@@ -175,16 +179,16 @@ class_task1 |> knitr::kable()
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | DSNpf9a0g5   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 22904584 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 33199928 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | DSNpf9a0g5   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
+| 30247057 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | jt8h0KxV4n   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 22904584 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | TRUE          | FALSE               |
+| 33199928 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | jt8h0KxV4n   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
 
 ### Parallel processing
 
