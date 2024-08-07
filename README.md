@@ -1,8 +1,7 @@
 # hollr
 
-An R package offering a unified interface for text completion through
-local and cloud-based LLMs, with a particular emphasis on text
-annotation tasks.
+An R package providing a unified interface for text completion via local
+and cloud-based LLMs, tailored for text annotation tasks.
 
 #### Features
 
@@ -153,17 +152,18 @@ truncate_abstract_vector <- function(abstracts, n) {
 # Use the function to truncate the abstract column
 pic <- hollr::political_ideology
 pic$ab <- truncate_abstract_vector(pic$abstract, 20)
-pic |> dplyr::select(pmid:articletitle, ab) |> head() |> knitr::kable()
+pic |> dplyr::select(pmid, year, articletitle, ab) |> 
+  head() |> knitr::kable()
 ```
 
-| pmid     | year | journal                                                           | articletitle                                                                                                                                                  | ab                                                                                                                                                        |
-|:--|:-|:------------|:---------------------------|:---------------------------|
-| 30247057 | 2018 | Journal of experimental psychology. General                       | Prior exposure increases perceived accuracy of fake news.                                                                                                     | The 2016 U.S. presidential election brought considerable attention to the phenomenon of “fake news”: entirely fabricated and often partisan content …     |
-| 37947551 | 2023 | International journal of environmental research and public health | Public Health Policy, Political Ideology, and Public Emotion Related to COVID-19 in the U.S.                                                                  | Social networks, particularly Twitter 9.0 (known as X as of 23 July 2023), have provided an avenue for prompt interactions …                              |
-| 28895229 | 2017 | The Milbank quarterly                                             | Crisis and Change: The Making of a French FDA.                                                                                                                | Policy Points: Introducing a recent special issue of The Lancet on the health system in France, Horton and Ceschia observe …                              |
-| 34341651 | 2023 | Current psychology (New Brunswick, N.J.)                          | The influence of gain-loss framing and its interaction with political ideology on social distancing and mask wearing compliance during the COVID-19 pandemic. | The COVID-19 pandemic has caused millions of cases and over half a million deaths in the United States. While health …                                    |
-| 25316309 | 2015 | Applied health economics and health policy                        | How do economic evaluations inform health policy decisions for treatment and prevention in Canada and the United States?                                      | Canadian and US health systems have often been characterized as having vastly different approaches to the financing and delivery of …                     |
-| 22904584 | 2012 | Political psychology                                              | Disentangling the Importance of Psychological Predispositions and Social Constructions in the Organization of American Political Ideology.                    | Ideological preferences within the American electorate are contingent on both the environmental conditions that provide the content of the contemporary … |
+| pmid     | year | articletitle                                                                                                                                                  | ab                                                                                                                                                        |
+|:--|:--|:---------------------------------|:--------------------------------|
+| 30247057 | 2018 | Prior exposure increases perceived accuracy of fake news.                                                                                                     | The 2016 U.S. presidential election brought considerable attention to the phenomenon of “fake news”: entirely fabricated and often partisan content …     |
+| 37947551 | 2023 | Public Health Policy, Political Ideology, and Public Emotion Related to COVID-19 in the U.S.                                                                  | Social networks, particularly Twitter 9.0 (known as X as of 23 July 2023), have provided an avenue for prompt interactions …                              |
+| 28895229 | 2017 | Crisis and Change: The Making of a French FDA.                                                                                                                | Policy Points: Introducing a recent special issue of The Lancet on the health system in France, Horton and Ceschia observe …                              |
+| 34341651 | 2023 | The influence of gain-loss framing and its interaction with political ideology on social distancing and mask wearing compliance during the COVID-19 pandemic. | The COVID-19 pandemic has caused millions of cases and over half a million deaths in the United States. While health …                                    |
+| 25316309 | 2015 | How do economic evaluations inform health policy decisions for treatment and prevention in Canada and the United States?                                      | Canadian and US health systems have often been characterized as having vastly different approaches to the financing and delivery of …                     |
+| 22904584 | 2012 | Disentangling the Importance of Psychological Predispositions and Social Constructions in the Organization of American Political Ideology.                    | Ideological preferences within the American electorate are contingent on both the environmental conditions that provide the content of the contemporary … |
 
 ``` r
 class_task_prompt <- paste(paste(hollr::prompts$FeaturizeTextYN, 
@@ -176,56 +176,59 @@ class_task_prompt <- paste(paste(hollr::prompts$FeaturizeTextYN,
 ### Force JSON
 
 ``` r
-class_task1 <- hollr::hollr (model = 'gpt-4o-mini',
-                            id = hollr::political_ideology$pmid[1:10],
-                            user_message = class_task_prompt[1:10], 
-                            cores = 1, 
-                            annotators = 1, 
-                            max_attempts = 7,
-                            force_json = T,
-                            flatten_json = T
-                            )
+class_task1 <- hollr::hollr(
+  model = 'gpt-4o-mini',
+  id = hollr::political_ideology$pmid[1:10],
+  user_message = class_task_prompt[1:10], 
+  cores = 1, 
+  annotators = 1, 
+  max_attempts = 7,
+  force_json = T,
+  flatten_json = T
+  )
 
 class_task1 |> knitr::kable()
 ```
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | Ia2uEoXJuC   |        1 | TRUE    | FALSE    | FALSE       | TRUE     | TRUE          | FALSE               |
-| 22904584 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 33199928 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
+| 30247057 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | bezp0zz2js   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | bezp0zz2js   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | bezp0zz2js   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 22904584 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 33199928 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | bezp0zz2js   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
 
 ### Parallel processing
 
 ``` r
-class_task2 <- hollr::hollr (model = 'gpt-4o-mini',
-                             id = hollr::political_ideology$pmid[1:10],
-                             user_message = class_task_prompt[1:10], 
-                             cores = 7, 
-                             annotators = 3, 
-                             max_attempts = 7,
-                             force_json = T,
-                             flatten_json = T
-                             )
+class_task2 <- hollr::hollr(
+  model = 'gpt-4o-mini',
+  id = hollr::political_ideology$pmid[1:10],
+  user_message = class_task_prompt[1:10], 
+  cores = 7, 
+  annotators = 3, 
+  max_attempts = 7,
+  force_json = T,
+  flatten_json = T
+  )
 
-class_task2 |> dplyr::arrange(id, annotator_id) |> head() |> knitr::kable()
+class_task2 |> dplyr::arrange(id, annotator_id) |> 
+  head() |> knitr::kable()
 ```
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 22904584 | 9xUUb1rjDN   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 22904584 | QErtP72EFD   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 22904584 | XXBQ9huvq0   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 25316309 | 9xUUb1rjDN   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 25316309 | QErtP72EFD   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 25316309 | XXBQ9huvq0   |        1 | TRUE    | FALSE    | FALSE       | TRUE     | TRUE          | FALSE               |
+| 22904584 | Mste0fVFbz   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 22904584 | w0dL5LYIEE   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 22904584 | z4Bl0Ltwgt   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 25316309 | Mste0fVFbz   |        1 | TRUE    | FALSE    | FALSE       | TRUE     | TRUE          | FALSE               |
+| 25316309 | w0dL5LYIEE   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 25316309 | z4Bl0Ltwgt   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
 
 ## Local LLMs
 
@@ -235,4 +238,34 @@ llm = 'meta-llama/Meta-Llama-3.1-8B-Instruct'
 
 ### Sequential
 
+``` r
+local_seq <- hollr::hollr(
+  model = 'meta-llama/Meta-Llama-3.1-8B-Instruct',
+  id = hollr::political_ideology$pmid[1:10],
+  user_message = class_task_prompt[1:10], 
+  # cores = 7, 
+  annotators = 3, 
+  #max_attempts = 7,
+  force_json = F,
+  flatten_json = F,
+  max_new_tokens = 75, 
+  batch_size = 1
+  )
+```
+
 ### Batch processing
+
+``` r
+batch_seq <- hollr::hollr(
+  model = 'meta-llama/Meta-Llama-3.1-8B-Instruct',
+  id = hollr::political_ideology$pmid[1:10],
+  user_message = class_task_prompt[1:10], 
+  # cores = 7, 
+  annotators = 3, 
+  #max_attempts = 7,
+  force_json = F,
+  flatten_json = F,
+  max_new_tokens = 75, 
+  batch_size = 5
+  )
+```
