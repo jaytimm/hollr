@@ -28,13 +28,20 @@ pretty_prompt <- function(x, width = 50L, char_length = NULL) {
   if (!is.null(char_length) && (!is.numeric(char_length) || char_length <= 0)) {
     stop("'char_length' must be a positive integer or NULL.")
   }
-
+  
   # Truncate the text to the character limit if specified
   if (!is.null(char_length) && nchar(x) > char_length) {
     x <- substr(x, 1, char_length)
   }
-
-  # Wrap the text and write lines
-  wrapped_text <- strwrap(x, width = width)
+  
+  # Split the text into lines based on existing newlines
+  lines <- strsplit(x, "\n", fixed = TRUE)[[1]]
+  
+  # Wrap each line separately and preserve newlines
+  wrapped_text <- unlist(lapply(lines, function(line) {
+    strwrap(line, width = width)
+  }), use.names = FALSE)
+  
+  # Print the wrapped text
   writeLines(wrapped_text)
 }

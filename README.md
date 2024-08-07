@@ -26,38 +26,78 @@ annotation tasks.
 
 -   **Robust JSON Handling**: Ensures consistent and valid JSON output.
 
-## Some prompts and data
+------------------------------------------------------------------------
 
-``` r
-hollr::pretty_prompt(hollr::prompts$QnA)
+## Conda environment & reticulate
+
+> May want to rename environment as `hollr`.
+
+``` bash
+# Create and activate a new conda environment with Python 3.9
+conda create -n llm_base python=3.9 -y
+conda activate llm_base
+
+# Update all packages in the environment
+conda update --all -y
+
+# Install required packages with conda
+conda install nmslib pandas numpy spacy -c conda-forge -y
+conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y
+
+# Install additional packages with pip
+pip install transformers packaging ninja flash-attn --no-build-isolation accelerate protobuf auto-gptq \
+"git+https://github.com/PanQiWei/AutoGPTQ.git@v0.6.0" optimum tiktoken sentencepiece
 ```
 
-    ## ROLE:
+``` r
+# Set environment variables and use conda environment
+Sys.setenv(RETICULATE_PYTHON = file.path(miniconda_path, "envs", env_name, "bin/python"))
+reticulate::use_condaenv(condaenv = env_name, conda = file.path(miniconda_path, "bin/conda"))
+```
+
+## Some prompts and data
+
+### Sample prompts
+
+> `hollr` includes some sample prompts and text data.
+
+``` r
+hollr::pretty_prompt(hollr::prompts$FeaturizeTextYN)
+```
+
+    ## Role
+    ## As a political researcher for a think tank, your
+    ## task is to analyze and categorize abstracts
+    ## related to political ideology in America. You
+    ## will answer five yes/no questions for each
+    ## abstract to identify key themes and
+    ## methodological aspects. This structured
+    ## representation will help the think tank
+    ## understand trends and insights in political
+    ## behavior, guiding policy recommendations.
     ## 
-    ## You are an instructor at a prestigious political
-    ## research institute. Your role involves educating
-    ## future political researchers by enhancing their
-    ## understanding of political ideology, research
-    ## methodology, and key findings through the
-    ## development of insightful educational materials.
+    ## Task
+    ## Features to Identify:
     ## 
-    ## TASK:
-    ## 
-    ## You will analyze research abstracts related to
-    ## political ideology in America, identify key
-    ## details, and formulate Q&A pairs that challenge
-    ## trainees to recognize and articulate the nuances
-    ## of different studies. These questions should
-    ## cover various aspects such as research questions,
-    ## methodology, key findings, parties mentioned, and
-    ## implications. You will convert these questions
-    ## and answers into structured data formats to
-    ## facilitate efficient learning and comprehension.
-    ## 
-    ## EXAMPLE INPUT:
-    ## 
-    ## Personal similarities to a transgressor makes one
-    ## view the transgression as less immoral. We
+    ## pol_ideo: Does the abstract mention political
+    ## ideology or its influence on behaviors or
+    ## beliefs?
+    ## survey_long: Is the research based on survey data
+    ## collection or involves longitudinal data
+    ## (multiple waves of data collection)?
+    ## demo_geo: Does the abstract include an analysis
+    ## of demographic factors (e.g., age, gender,
+    ## education) or mention geographic/regional
+    ## differences within the United States?
+    ## health_policy: Is the study related to public
+    ## health issues, or does it address implications
+    ## for policymakers or public health interventions?
+    ## misinfo_media_trust: Does the abstract discuss
+    ## misinformation, media impact, or trust in
+    ## government/public institutions?
+    ## Example Input
+    ## "Personal similarities to a transgressor makes
+    ## one view the transgression as less immoral. We
     ## investigated whether personal relevance might
     ## also affect the perceived immorality of
     ## politically-charged threats. We hypothesized that
@@ -81,47 +121,117 @@ hollr::pretty_prompt(hollr::prompts$QnA)
     ## prompt. We did not find these results for
     ## conservative-leaning participants, perhaps
     ## because all participants cared relatively equally
-    ## about the liberal threat.
+    ## about the liberal threat."
     ## 
-    ## EXAMPLE OUTPUT:
     ## 
-    ## [ { "question": "What was the main hypothesis of
-    ## the study?", "answer": "The main hypothesis was
-    ## that increasing the personal relevance of a
-    ## politically-charged threat would lead
-    ## participants to report the threat as more
-    ## immoral, even for threats the participant might
-    ## otherwise view indifferently."  }, { "question":
-    ## "How were the participants assigned in the
-    ## study?", "answer": "Participants were randomly
-    ## assigned to write about the personal relevance of
-    ## either a liberal threat (pollution), conservative
-    ## threat (disrespecting an elder), neutral threat
-    ## (romantic infidelity), or given a control filler
-    ## task."  }, { "question": "What were the key
-    ## findings related to liberal-leaning
-    ## participants?", "answer": "Liberal-leaning
-    ## participants rated the conservative threat as
-    ## more immoral when primed with conservative
-    ## writing prompts compared to the same threat after
-    ## a liberal writing prompt."  }, { "question":
-    ## "What was the sample size of the study?",
-    ## "answer": "The sample size of the study was 488
-    ## U.S. participants."  }, { "question": "Did the
-    ## study find the same results for
-    ## conservative-leaning participants?", "answer":
-    ## "No, the study did not find the same results for
-    ## conservative-leaning participants. This may be
-    ## because all participants cared relatively equally
-    ## about the liberal threat."  } ]
+    ## 
+    ## Expected Output
+    ## 
+    ## {
+    ## "pol_ideo": true,
+    ## "survey_long": true,
+    ## "demo_geo": false,
+    ## "health_policy": false,
+    ## "misinfo_media_trust": false
+    ## }
+
+### Sample data
+
+``` r
+# Vectorized function to truncate a vector of abstracts by words and add ellipses
+truncate_abstract_vector <- function(abstracts, n) {
+  truncated <- vapply(strsplit(abstracts, " "), function(words) {
+    if (length(words) > n) {
+      paste(c(words[1:n], "..."), collapse = " ")
+    } else {
+      paste(words, collapse = " ")
+    }
+  }, character(1))
+  return(truncated)
+}
+
+# Use the function to truncate the abstract column
+pic <- hollr::political_ideology
+pic$ab <- truncate_abstract_vector(pic$abstract, 20)
+pic |> dplyr::select(pmid:articletitle, ab) |> head() |> knitr::kable()
+```
+
+| pmid     | year | journal                                                           | articletitle                                                                                                                                                  | ab                                                                                                                                                        |
+|:--|:-|:------------|:---------------------------|:---------------------------|
+| 30247057 | 2018 | Journal of experimental psychology. General                       | Prior exposure increases perceived accuracy of fake news.                                                                                                     | The 2016 U.S. presidential election brought considerable attention to the phenomenon of “fake news”: entirely fabricated and often partisan content …     |
+| 37947551 | 2023 | International journal of environmental research and public health | Public Health Policy, Political Ideology, and Public Emotion Related to COVID-19 in the U.S.                                                                  | Social networks, particularly Twitter 9.0 (known as X as of 23 July 2023), have provided an avenue for prompt interactions …                              |
+| 28895229 | 2017 | The Milbank quarterly                                             | Crisis and Change: The Making of a French FDA.                                                                                                                | Policy Points: Introducing a recent special issue of The Lancet on the health system in France, Horton and Ceschia observe …                              |
+| 34341651 | 2023 | Current psychology (New Brunswick, N.J.)                          | The influence of gain-loss framing and its interaction with political ideology on social distancing and mask wearing compliance during the COVID-19 pandemic. | The COVID-19 pandemic has caused millions of cases and over half a million deaths in the United States. While health …                                    |
+| 25316309 | 2015 | Applied health economics and health policy                        | How do economic evaluations inform health policy decisions for treatment and prevention in Canada and the United States?                                      | Canadian and US health systems have often been characterized as having vastly different approaches to the financing and delivery of …                     |
+| 22904584 | 2012 | Political psychology                                              | Disentangling the Importance of Psychological Predispositions and Social Constructions in the Organization of American Political Ideology.                    | Ideological preferences within the American electorate are contingent on both the environmental conditions that provide the content of the contemporary … |
+
+``` r
+class_task_prompt <- paste(paste(hollr::prompts$FeaturizeTextYN, 
+                                 'Abstract:', sep = '\n\n'),
+                           hollr::political_ideology$abstract, sep = '\n')
+```
 
 ## Cloud-based LLMs
 
 ### Force JSON
 
+``` r
+class_task1 <- hollr::hollr (model = 'gpt-4o-mini',
+                            id = hollr::political_ideology$pmid[1:10],
+                            user_message = class_task_prompt[1:10], 
+                            cores = 1, 
+                            annotators = 1, 
+                            max_attempts = 7,
+                            force_json = T,
+                            flatten_json = T
+                            )
+
+class_task1 |> knitr::kable()
+```
+
+| id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
+|:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
+| 30247057 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | Ia2uEoXJuC   |        1 | TRUE    | FALSE    | FALSE       | TRUE     | TRUE          | FALSE               |
+| 22904584 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 33199928 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | Ia2uEoXJuC   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
+
 ### Parallel processing
 
+``` r
+class_task2 <- hollr::hollr (model = 'gpt-4o-mini',
+                             id = hollr::political_ideology$pmid[1:10],
+                             user_message = class_task_prompt[1:10], 
+                             cores = 7, 
+                             annotators = 3, 
+                             max_attempts = 7,
+                             force_json = T,
+                             flatten_json = T
+                             )
+
+class_task2 |> dplyr::arrange(id, annotator_id) |> head() |> knitr::kable()
+```
+
+| id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
+|:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
+| 22904584 | 9xUUb1rjDN   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 22904584 | QErtP72EFD   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 22904584 | XXBQ9huvq0   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 25316309 | 9xUUb1rjDN   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 25316309 | QErtP72EFD   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 25316309 | XXBQ9huvq0   |        1 | TRUE    | FALSE    | FALSE       | TRUE     | TRUE          | FALSE               |
+
 ## Local LLMs
+
+``` r
+llm = 'meta-llama/Meta-Llama-3.1-8B-Instruct'
+```
 
 ### Sequential
 
