@@ -1,3 +1,6 @@
+[![](https://www.r-pkg.org/badges/version/hollr)](https://cran.r-project.org/package=hollr)
+[![](http://cranlogs.r-pkg.org/badges/last-month/hollr)](https://cran.r-project.org/package=hollr)
+
 # hollr
 
 An R package providing a unified interface for text completion via local
@@ -179,16 +182,16 @@ class_task1 |> knitr::kable()
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | UPo2EAwCka   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | UPo2EAwCka   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | UPo2EAwCka   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 22904584 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | TRUE          | FALSE               |
-| 33199928 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | UPo2EAwCka   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
+| 30247057 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | 1mqmCu6hCS   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 22904584 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | FALSE         | FALSE               |
+| 7183563  | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | TRUE          | FALSE               |
+| 33199928 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
 
 ### Parallel processing
 
