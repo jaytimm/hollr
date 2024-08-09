@@ -19,6 +19,7 @@
 #' @param openai_organization The organization ID for the OpenAI API (default is NULL).
 #' @param cores The number of cores to use for parallel processing (default is 1).
 #' @param batch_size The number of batch_size to process (default is 1, only for local models).
+#' @param extract_json A logical indicating whether to extract and clean JSON strings from the response (default is TRUE).
 #' @return A data.table containing the generated text and metadata.
 #' @examples
 #' \dontrun{
@@ -49,7 +50,8 @@ hollr <- function(id,
                   openai_api_key = Sys.getenv("OPENAI_API_KEY"),
                   openai_organization = NULL,
                   cores = 1,
-                  batch_size = 1) {
+                  batch_size = 1,
+                  extract_json = TRUE) {
   
   # Determine if the model is OpenAI or local
   is_openai_model <- grepl("gpt-3.5-turbo|gpt-4|gpt-4o|gpt-4o-mini", model, ignore.case = TRUE)
@@ -65,7 +67,8 @@ hollr <- function(id,
                                max_new_tokens = max_new_tokens,
                                max_length = max_length,
                                system_message = system_message,
-                               batch_size = batch_size))
+                               batch_size = batch_size,
+                               extract_json = extract_json))
   }
   
   # Prepare data
@@ -108,7 +111,7 @@ hollr <- function(id,
                                                force_json, 
                                                max_attempts)
     
-    cleaned_response <- gsub("^```json|```$", "", validation_result$response)
+    cleaned_response <- gsub("^\\s*\\[\\s*\\{.*\\}\\s*\\]\\s*$", "", validation_result$response)
     
     list(id = row$id,
          annotator_id = row$annotator_id,

@@ -14,7 +14,8 @@ hollr_local_batches(
   max_new_tokens = 100,
   max_length = NULL,
   system_message = "",
-  batch_size = 10
+  batch_size = 10,
+  extract_json = TRUE
 )
 }
 \arguments{
@@ -37,6 +38,8 @@ hollr_local_batches(
 \item{system_message}{The message provided by the system (default is '').}
 
 \item{batch_size}{The number of messages to process in each batch (default is 10).}
+
+\item{extract_json}{A logical indicating whether to extract and clean JSON strings from the response (default is TRUE).}
 }
 \value{
 A list containing the generated responses for each batch.

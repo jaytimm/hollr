@@ -21,7 +21,8 @@ hollr(
   openai_api_key = Sys.getenv("OPENAI_API_KEY"),
   openai_organization = NULL,
   cores = 1,
-  batch_size = 1
+  batch_size = 1,
+  extract_json = TRUE
 )
 }
 \arguments{
@@ -58,6 +59,8 @@ hollr(
 \item{cores}{The number of cores to use for parallel processing (default is 1).}
 
 \item{batch_size}{The number of batch_size to process (default is 1, only for local models).}
+
+\item{extract_json}{A logical indicating whether to extract and clean JSON strings from the response (default is TRUE).}
 }
 \value{
 A data.table containing the generated text and metadata.
