@@ -3,7 +3,7 @@
 
 # hollr
 
-An R package providing a unified interface for text completion via local
+An R package providing a unified interface for chat completion via local
 and cloud-based LLMs, tailored for text annotation tasks.
 
 #### Features
@@ -29,31 +29,6 @@ and cloud-based LLMs, tailored for text annotation tasks.
 -   **Robust JSON Handling**: Ensures consistent and valid JSON output.
 
 ------------------------------------------------------------------------
-
-## Conda environment & reticulate
-
-``` bash
-# Create and activate a new conda environment with Python 3.9
-conda create -n llm_base python=3.9 -y
-conda activate llm_base
-
-# Update all packages in the environment
-conda update --all -y
-
-# Install required packages with conda
-conda install nmslib pandas numpy spacy -c conda-forge -y
-conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y
-
-# Install additional packages with pip
-pip install transformers packaging ninja flash-attn --no-build-isolation accelerate protobuf auto-gptq \
-"git+https://github.com/PanQiWei/AutoGPTQ.git@v0.6.0" optimum tiktoken sentencepiece
-```
-
-``` r
-# Set environment variables and use conda environment
-Sys.setenv(RETICULATE_PYTHON = file.path(miniconda_path, "envs", env_name, "bin/python"))
-reticulate::use_condaenv(condaenv = env_name, conda = file.path(miniconda_path, "bin/conda"))
-```
 
 ## Some prompts and data
 
@@ -182,16 +157,16 @@ class_task1 |> knitr::kable()
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | 1mqmCu6hCS   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 22904584 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | FALSE         | FALSE               |
-| 7183563  | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | TRUE          | FALSE               |
-| 33199928 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | 1mqmCu6hCS   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 30247057 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | os8UHcrJQG   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | os8UHcrJQG   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | os8UHcrJQG   |        1 | TRUE    | FALSE    | FALSE       | TRUE     | TRUE          | FALSE               |
+| 22904584 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 33199928 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
 
 ### Parallel processing
 
@@ -210,11 +185,38 @@ class_task2 <- hollr::hollr(
 
 ## Local LLMs
 
+### Conda environment & reticulate
+
+> For running local models.
+
+``` bash
+# Create and activate a new conda environment with Python 3.9
+conda create -n llm_base python=3.9 -y
+conda activate llm_base
+
+# Update all packages in the environment
+conda update --all -y
+
+# Install required packages with conda
+conda install nmslib pandas numpy spacy -c conda-forge -y
+conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -y
+
+# Install additional packages with pip
+pip install transformers packaging ninja flash-attn --no-build-isolation accelerate protobuf auto-gptq \
+"git+https://github.com/PanQiWei/AutoGPTQ.git@v0.6.0" optimum tiktoken sentencepiece
+```
+
+``` r
+# Set environment variables and use conda environment
+Sys.setenv(RETICULATE_PYTHON = file.path(miniconda_path, "envs", env_name, "bin/python"))
+reticulate::use_condaenv(condaenv = env_name, conda = file.path(miniconda_path, "bin/conda"))
+```
+
 ``` r
 llm = 'meta-llama/Meta-Llama-3.1-8B-Instruct'
 ```
 
-### Sequential
+### Sequential processing
 
 ``` r
 local_seq <- hollr::hollr(
