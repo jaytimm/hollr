@@ -67,7 +67,7 @@
 <div class="section level1">
 <div class="page-header"><h1 id="hollr">hollr<a class="anchor" aria-label="anchor" href="#hollr"></a>
 </h1></div>
-<p>An R package providing a unified interface for chat completion via local and cloud-based LLMs, tailored for text annotation tasks.</p>
+<p>An R package providing a unified interface for chat completion via local and cloud-based LLMs, tailored for text annotation tasks. Local LLMs via Python/<code>reticulate</code>.</p>
 <div class="section level4">
 <h4 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h4>
@@ -261,7 +261,7 @@
 <tbody>
 <tr class="odd">
 <td align="left">30247057</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
@@ -272,18 +272,18 @@
 </tr>
 <tr class="even">
 <td align="left">37947551</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
-<td align="left">FALSE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="odd">
 <td align="left">28895229</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
@@ -294,7 +294,7 @@
 </tr>
 <tr class="even">
 <td align="left">34341651</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
@@ -305,18 +305,18 @@
 </tr>
 <tr class="odd">
 <td align="left">25316309</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
-<td align="left">TRUE</td>
+<td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">22904584</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
@@ -327,18 +327,18 @@
 </tr>
 <tr class="odd">
 <td align="left">7183563</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
 <td align="left">FALSE</td>
 </tr>
 <tr class="even">
 <td align="left">33199928</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
@@ -349,7 +349,7 @@
 </tr>
 <tr class="odd">
 <td align="left">35270435</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
@@ -360,7 +360,7 @@
 </tr>
 <tr class="even">
 <td align="left">35250760</td>
-<td align="left">os8UHcrJQG</td>
+<td align="left">knxu7TdMWs</td>
 <td align="right">1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
@@ -392,11 +392,8 @@
 <h2 id="local-llms">Local LLMs<a class="anchor" aria-label="anchor" href="#local-llms"></a>
 </h2>
 <div class="section level3">
-<h3 id="conda-environment--reticulate">Conda environment &amp; reticulate<a class="anchor" aria-label="anchor" href="#conda-environment--reticulate"></a>
+<h3 id="conda-environment">Conda environment<a class="anchor" aria-label="anchor" href="#conda-environment"></a>
 </h3>
-<blockquote>
-<p>For running local models.</p>
-</blockquote>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Create and activate a new conda environment with Python 3.9</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> llm_base python=3.9 <span class="at">-y</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="ex">conda</span> activate llm_base</span>
@@ -411,6 +408,10 @@
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co"># Install additional packages with pip</span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="ex">pip</span> install transformers packaging ninja flash-attn <span class="at">--no-build-isolation</span> accelerate protobuf auto-gptq <span class="dt">\</span></span>
 <span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="st">"git+https://github.com/PanQiWei/AutoGPTQ.git@v0.6.0"</span> optimum tiktoken sentencepiece</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="reticulate">Reticulate<a class="anchor" aria-label="anchor" href="#reticulate"></a>
+</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set environment variables and use conda environment</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>RETICULATE_PYTHON <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">miniconda_path</span>, <span class="st">"envs"</span>, <span class="va">env_name</span>, <span class="st">"bin/python"</span><span class="op">)</span><span class="op">)</span></span>
