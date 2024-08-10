@@ -4,7 +4,8 @@
 # hollr
 
 An R package providing a unified interface for chat completion via local
-and cloud-based LLMs, tailored for text annotation tasks.
+and cloud-based LLMs, tailored for text annotation tasks. Local LLMs via
+Python/`reticulate`.
 
 #### Features
 
@@ -157,16 +158,16 @@ class_task1 |> knitr::kable()
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | os8UHcrJQG   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | os8UHcrJQG   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | os8UHcrJQG   |        1 | TRUE    | FALSE    | FALSE       | TRUE     | TRUE          | FALSE               |
-| 22904584 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 33199928 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | os8UHcrJQG   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 30247057 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 28895229 | knxu7TdMWs   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | knxu7TdMWs   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 22904584 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 33199928 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
 
 ### Parallel processing
 
@@ -185,9 +186,7 @@ class_task2 <- hollr::hollr(
 
 ## Local LLMs
 
-### Conda environment & reticulate
-
-> For running local models.
+### Conda environment
 
 ``` bash
 # Create and activate a new conda environment with Python 3.9
@@ -205,6 +204,8 @@ conda install pytorch torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvi
 pip install transformers packaging ninja flash-attn --no-build-isolation accelerate protobuf auto-gptq \
 "git+https://github.com/PanQiWei/AutoGPTQ.git@v0.6.0" optimum tiktoken sentencepiece
 ```
+
+### Reticulate
 
 ``` r
 # Set environment variables and use conda environment
