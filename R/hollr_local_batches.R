@@ -79,8 +79,8 @@ hollr_local_batches <- function(id,
                                            response = unlist(all_responses))
   
   if (extract_json) {
- 
-       # Apply the jaxsn_compaction function to each element in the response column
+    
+    # Apply the jaxsn_compaction function to each element in the response column
     responses_sens[, cleaned_json := sapply(response, .jaxsn_compaction, USE.NAMES = FALSE)]
   } else {
     responses_sens[, cleaned_json := response]
