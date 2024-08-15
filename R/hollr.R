@@ -100,8 +100,7 @@ hollr <- function(id,
                                                  row$user_message,
                                                  temperature,
                                                  max_length,
-                                                 max_new_tokens,
-                                                 max_attempts)
+                                                 max_new_tokens)
       }
       
       response

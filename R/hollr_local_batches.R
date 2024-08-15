@@ -34,6 +34,11 @@ hollr_local_batches <- function(id,
                                 system_message = '',
                                 batch_size = 10,
                                 extract_json = TRUE) {
+  
+  
+  cleaned_json <- NULL
+  response <- NULL
+  
   # Prepare data
   text_df <- data.table::data.table(id = rep(id, annotators),
                                     annotator_id = .generate_random_ids(annotators),

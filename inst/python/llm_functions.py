@@ -10,18 +10,22 @@ def initialize_model(model_name):
     Returns:
         pipeline: A text generation pipeline using the specified model and tokenizer.
     """
-    from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+    import os
     import torch
+    from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+
+    # Set the CUDA allocation configuration
+    os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
+
+    # Optionally, clear the CUDA cache before starting
+    torch.cuda.empty_cache()
 
     # Load the tokenizer for the specified model
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    print("Initial pad token:", tokenizer.pad_token)  # Debugging: Print initial pad token
 
     # Set pad token if it does not exist
     if tokenizer.pad_token is None:
-        print("No pad token found, adding '[PAD]' as pad_token")
         tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-        print("New pad token set:", tokenizer.pad_token)
 
     # Load the model
     model = AutoModelForCausalLM.from_pretrained(model_name,
@@ -30,13 +34,15 @@ def initialize_model(model_name):
 
     # Update model embeddings
     model.resize_token_embeddings(len(tokenizer))
-    print("Model embeddings updated to reflect new tokenizer size.")
+
+    # Optionally, clear the CUDA cache after model initialization
+    torch.cuda.empty_cache()
 
     # Create text generation pipeline
     model_pipeline = pipeline("text-generation", model=model, tokenizer=tokenizer)
-    print("Pipeline created with pad token:", tokenizer.pad_token)  # Confirm pad token at pipeline creation
 
     return model_pipeline
+
 
 
 def generate_text_batch(model_pipeline, prompt, temperature, max_length, max_new_tokens=None):
