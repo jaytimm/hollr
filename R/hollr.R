@@ -54,7 +54,7 @@ hollr <- function(id,
                   extract_json = TRUE) {
   
   # Determine if the model is OpenAI or local
-  is_openai_model <- grepl("gpt-3.5-turbo|gpt-4|gpt-4o|gpt-4o-mini", model, ignore.case = TRUE)
+  is_openai_model <- grepl("^gpt-", model, ignore.case = TRUE)
   
   if (!is_openai_model && batch_size > 1) {
     # Run the local model with batch processing
@@ -110,7 +110,7 @@ hollr <- function(id,
                                                force_json, 
                                                max_attempts)
     
-    cleaned_response <- gsub("^\\s*\\[\\s*\\{.*\\}\\s*\\]\\s*$", "", validation_result$response)
+    cleaned_response <- gsub("^```json\\s*|```$", "", validation_result$response)
     
     list(id = row$id,
          annotator_id = row$annotator_id,
