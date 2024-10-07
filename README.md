@@ -24,147 +24,99 @@ the model used, keeping results easily manageable.
 Ideal for users looking for a simple, unified solution for text
 annotation with both local and cloud-based language models.
 
-------------------------------------------------------------------------
+## Installation
 
-## Some prompts and data
-
-### Sample prompts
-
-> `hollr` includes some sample prompts and text data.
+Get the development version from GitHub with:
 
 ``` r
-pretty_prompt(hollr::prompts$FeaturizeTextYN)
+remotes::install_github("jaytimm/hollr")
 ```
 
-    ## Role
-    ## As a political researcher for a think tank, your
-    ## task is to analyze and categorize abstracts
-    ## related to political ideology in America. You
-    ## will answer five yes/no questions for each
-    ## abstract to identify key themes and
-    ## methodological aspects. This structured
-    ## representation will help the think tank
-    ## understand trends and insights in political
-    ## behavior, guiding policy recommendations.
-    ## 
-    ## Task
-    ## Features to Identify:
-    ## 
-    ## pol_ideo: Does the abstract mention political
-    ## ideology or its influence on behaviors or
-    ## beliefs?
-    ## survey_long: Is the research based on survey data
-    ## collection or involves longitudinal data
-    ## (multiple waves of data collection)?
-    ## demo_geo: Does the abstract include an analysis
-    ## of demographic factors (e.g., age, gender,
-    ## education) or mention geographic/regional
-    ## differences within the United States?
-    ## health_policy: Is the study related to public
-    ## health issues, or does it address implications
-    ## for policymakers or public health interventions?
-    ## misinfo_media_trust: Does the abstract discuss
-    ## misinformation, media impact, or trust in
-    ## government/public institutions?
-    ## 
-    ## 
-    ## 
-    ## Example Input:
-    ## 
-    ## "Personal similarities to a transgressor makes
-    ## one view the transgression as less immoral. We
-    ## investigated whether personal relevance might
-    ## also affect the perceived immorality of
-    ## politically-charged threats. We hypothesized that
-    ## increasing the personal relevance of a threat
-    ## would lead participants to report the threat as
-    ## more immoral, even for threats the participant
-    ## might otherwise view indifferently. U.S.
-    ## participants recruited online (N = 488) were
-    ## randomly assigned to write about the personal
-    ## relevance of either a liberal threat (pollution),
-    ## conservative threat (disrespecting an elder),
-    ## neutral threat (romantic infidelity), or given a
-    ## control filler task. Participants then rated how
-    ## immoral and personally relevant each political
-    ## threat was, as well as reported their political
-    ## ideology. Partial support for our hypothesis
-    ## emerged: when primed with conservative writing
-    ## prompts, liberal-leaning participants rated the
-    ## conservative threat as more immoral, compared
-    ## with the same threat after a liberal writing
-    ## prompt. We did not find these results for
-    ## conservative-leaning participants, perhaps
-    ## because all participants cared relatively equally
-    ## about the liberal threat."
-    ## 
-    ## 
-    ## 
-    ## Expected Output:
-    ## 
-    ## {
-    ## "pol_ideo": true,
-    ## "survey_long": true,
-    ## "demo_geo": false,
-    ## "health_policy": false,
-    ## "misinfo_media_trust": false
-    ## }
+## Usage
 
-### Sample data
+## A quick example
+
+### Some PubMed data
 
 ``` r
-# Use the function to truncate the abstract column
-pic <- hollr::political_ideology
-pic$ab <- truncate_abstract_vector(pic$abstract, 20)
-pic |> dplyr::select(pmid, year, articletitle, ab) |> 
+pmids <- puremoe::search_pubmed('("political ideology"[TiAb])',
+                                 use_pub_years = F) |> 
+  puremoe::get_records(endpoint = 'pubmed_abstracts', 
+                       cores = 3, 
+                       sleep = 1) 
+```
+
+``` r
+pmids |> dplyr::mutate(ab = truncate_abstract_vector(abstract, 20)) |>
+  dplyr::select(pmid, year, articletitle, ab) |> 
   head(3) |> knitr::kable()
 ```
 
-| pmid     | year | articletitle                                                                                 | ab                                                                                                                                                    |
-|:---|:--|:-------------------------|:----------------------------------------|
-| 30247057 | 2018 | Prior exposure increases perceived accuracy of fake news.                                    | The 2016 U.S. presidential election brought considerable attention to the phenomenon of “fake news”: entirely fabricated and often partisan content … |
-| 37947551 | 2023 | Public Health Policy, Political Ideology, and Public Emotion Related to COVID-19 in the U.S. | Social networks, particularly Twitter 9.0 (known as X as of 23 July 2023), have provided an avenue for prompt interactions …                          |
-| 28895229 | 2017 | Crisis and Change: The Making of a French FDA.                                               | Policy Points: Introducing a recent special issue of The Lancet on the health system in France, Horton and Ceschia observe …                          |
+| pmid     | year | articletitle                                                                                      | ab                                                                                                                            |
+|:---|:--|:----------------------------|:------------------------------------|
+| 39340096 | 2024 | Messaging to Reduce Booster Hesitancy among the Fully Vaccinated.                                 | Vaccine hesitancy was a serious problem in the United States throughout the COVID-19 pandemic, due in part to the reduction … |
+| 39320049 | 2024 | Rural reticence to inform physicians of cannabis use.                                             | Over 75% of Americans have legal access to medical cannabis, though physical access is not uniform and can be difficult …     |
+| 39222956 | 2024 | The prototypical UK blood donor, homophily and blood donation: Blood donors are like you, not me. | Homophily represents the extent to which people feel others are like them and encourages the uptake of activities they feel … |
+
+### A quick prompt
+
+    ## For the PubMed abstract provided below, provide a
+    ## single sentence summary of the research findings
+    ## in 30 words. Ensure that the summary is concise,
+    ## starts with "Study results demonstrate," and
+    ## highlights the key outcomes. Also, identify the
+    ## country or countries where the study was
+    ## conducted.
+    ## 
+    ## Expected Output:
+    ## {
+    ## "country_studied": "Country or countries where
+    ## the study was conducted.",
+    ## "summary": "Study results demonstrate ...
+    ## (summary of the research findings in 30 words)."
+    ## }
+    ## 
+    ## Abstract:
 
 ## Cloud-based LLMs
 
 ``` r
-class_task_prompt <- paste(paste(hollr::prompts$FeaturizeTextYN, 
-                                 'Abstract:', sep = '\n\n'),
-                           hollr::political_ideology$abstract, sep = '\n')
+prompt <- paste(p1, pmids$abstract, sep = '\n\n')
 ```
 
-### Force JSON
+### Single core & single annotator
 
 ``` r
 class_task1 <- hollr::hollr(
   model = 'gpt-4o-mini',
-  id = hollr::political_ideology$pmid[1:10],
-  user_message = class_task_prompt[1:10], 
+  id = pmids$pmid[1:10],
+  user_message = prompt[1:10], 
   cores = 1, 
   annotators = 1, 
   max_attempts = 7,
   force_json = T,
   flatten_json = T
   )
+```
 
+``` r
 class_task1 |> knitr::kable()
 ```
 
-| id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
-|:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
-| 28895229 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | uvFBLcsqrj   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 22904584 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 33199928 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
+| id       | annotator_id | attempts | success | country_studied                                                                                                                   | summary                                                                                                                                                                                                                                           |
+|:--|:---|--:|:--|:---------------------|:---------------------------------------|
+| 39340096 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate that providing safety and effectiveness explanations significantly enhanced participants’ trust in vaccine technology and willingness to receive the mRNA booster, regardless of political ideology.                    |
+| 39320049 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate that rural Americans face stigma affecting their disclosure of marijuana use to healthcare providers, contrasting with urban residents who report usage more openly.                                                    |
+| 39222956 | Q0qAxTCzJl   |        1 | TRUE    | United Kingdom                                                                                                                    | Study results demonstrate that current donors and MSM exhibit higher homophily to the prototypical UK blood donor, impacting ethnic minorities’ donation likelihood, highlighting recruitment strategy needs.                                     |
+| 39194099 | Q0qAxTCzJl   |        1 | TRUE    | Brazil                                                                                                                            | Study results demonstrate that stronger belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, highlighting the need for health education to counter misinformation.                                    |
+| 39148747 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate that firearm acquisition patterns in U.S. states are influenced by homicide rates, firearm laws, geography, and citizen ideology, affecting inter-state firearm acquisition dynamics.                                   |
+| 39105482 | Q0qAxTCzJl   |        1 | TRUE    | The study does not specify a particular country, but it investigates national regime ideology and biodiversity outcomes globally. | Study results demonstrate that political ideologies like nationalism and socialism adversely affect threatened species, while increased democracy enhances protected area establishment, highlighting the link between politics and biodiversity. |
+| 39102194 | Q0qAxTCzJl   |        1 | TRUE    | High- and low-income countries worldwide                                                                                          | Study results demonstrate that politicization of COVID-19 led to poorer health outcomes, higher infection rates, and vaccine hesitancy among conservatives compared to the left-wing populace across diverse countries.                           |
+| 39101909 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate that pro-diversity messages in recruitment can backfire, eliciting hiring biases based on race and political ideology, potentially undermining diversity initiatives’ intended outcomes.                                |
+| 39101906 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate significant differences in collective memory between Black and White Americans, with race-relevant events increasing following the murder of George Floyd, highlighting the malleability of collective memories.        |
+| 39093836 | Q0qAxTCzJl   |        1 | TRUE    | Poland                                                                                                                            | Study results demonstrate public acceptance of energy sources in Poland is primarily influenced by political ideology, with environmental attitudes and economic factors also playing significant roles.                                          |
 
-### Parallel processing
+### Parallel processing & multiple annotators
 
 ``` r
 class_task2 <- hollr::hollr(
