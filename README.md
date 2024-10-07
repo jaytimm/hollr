@@ -3,31 +3,26 @@
 
 # hollr
 
-An R package providing a unified interface for chat completion via local
-and cloud-based LLMs, tailored for text annotation tasks. Local LLMs via
-Python/`reticulate`.
+An R package designed for efficient chat completion and text annotation
+using both local and cloud-based LLMs, with a focus on simplicity and
+flexibility. Key features include:
 
-#### Features
+**Versatile Model Access**: Interact with cloud-based or local LLMs (via
+Python/reticulate) through a straightforward function.
 
--   **Versatile Model Integration**: Facilitates seamless access to both
-    cloud-based and local LLMs via a single function.
+**Multiple Annotator Support**: Facilitate text annotation workflows
+with support for multiple annotators, including ensembling and majority
+voting methods.
 
--   **Multiple Annotators**: Supports multiple annotators to handle
-    ensembling methods and majority voting.
+**Batch and Parallel Processing**: Handle multiple inputs simultaneously
+with local LLMs and speed up tasks by utilizing multiple cores for
+cloud-based models.
 
--   **Batch Processing for Local LLMs**: Enables batch processing to
-    handle multiple inputs simultaneously.
+**Consistent Output**: Ensure uniform data frame outputs regardless of
+the model used, keeping results easily manageable.
 
--   **Parallel Processing**: Leverages multiple cores for faster
-    processing with cloud-based models.
-
--   **Consistent Output**: Provides a consistent data frame output
-    across different models.
-
--   **Prompt Diagnostics**: Includes basic prompt diagnostics to help
-    understand and improve input prompts.
-
--   **Robust JSON Handling**: Ensures consistent and valid JSON output.
+Ideal for users looking for a simple, unified solution for text
+annotation with both local and cloud-based language models.
 
 ------------------------------------------------------------------------
 
@@ -158,16 +153,16 @@ class_task1 |> knitr::kable()
 
 | id       | annotator_id | attempts | success | pol_ideo | survey_long | demo_geo | health_policy | misinfo_media_trust |
 |:------|:--------|------:|:-----|:------|:--------|:------|:---------|:-------------|
-| 30247057 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
-| 37947551 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 28895229 | knxu7TdMWs   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
-| 34341651 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 25316309 | knxu7TdMWs   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
-| 22904584 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 7183563  | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
-| 33199928 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
-| 35270435 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
-| 35250760 | knxu7TdMWs   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 30247057 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | TRUE                |
+| 37947551 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | FALSE       | TRUE     | TRUE          | FALSE               |
+| 28895229 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | FALSE       | FALSE    | TRUE          | FALSE               |
+| 34341651 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 25316309 | uvFBLcsqrj   |        1 | TRUE    | FALSE    | FALSE       | FALSE    | TRUE          | FALSE               |
+| 22904584 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | FALSE    | FALSE         | FALSE               |
+| 7183563  | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 33199928 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | TRUE          | FALSE               |
+| 35270435 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | FALSE               |
+| 35250760 | uvFBLcsqrj   |        1 | TRUE    | TRUE     | TRUE        | TRUE     | FALSE         | TRUE                |
 
 ### Parallel processing
 
