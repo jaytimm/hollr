@@ -7,19 +7,19 @@ An R package designed for efficient chat completion and text annotation
 using both local and cloud-based LLMs, with a focus on simplicity and
 flexibility. Key features include:
 
-**Versatile Model Access**: Interact with cloud-based or local LLMs (via
-Python/reticulate) through a straightforward function.
+-   **Versatile Model Access**: Interact with cloud-based or local LLMs
+    (via Python/reticulate) through a straightforward function.
 
-**Multiple Annotator Support**: Facilitate text annotation workflows
-with support for multiple annotators, including ensembling and majority
-voting methods.
+-   **Multiple Annotator Support**: Facilitate text annotation workflows
+    with support for multiple annotators, including ensembling and
+    majority voting methods.
 
-**Batch and Parallel Processing**: Handle multiple inputs simultaneously
-with local LLMs and speed up tasks by utilizing multiple cores for
-cloud-based models.
+-   **Batch and Parallel Processing**: Handle multiple inputs
+    simultaneously with local LLMs and speed up tasks by utilizing
+    multiple cores for cloud-based models.
 
-**Consistent Output**: Ensure uniform data frame outputs regardless of
-the model used, keeping results easily manageable.
+-   **Consistent Output**: Ensure uniform data frame outputs regardless
+    of the model used, keeping results easily manageable.
 
 Ideal for users looking for a simple, unified solution for text
 annotation with both local and cloud-based language models.
@@ -100,12 +100,12 @@ class_task1 <- hollr::hollr(
 
 | id       | country        | summary                                                                                                                                                                                                                                          |
 |:---|:----|:--------------------------------------------------------------|
-| 39340096 | United States  | Study results demonstrate that providing scientific explanations significantly enhanced perceptions of mRNA booster safety, effectiveness, and trust in scientists, ultimately increasing willingness to receive the booster among participants. |
-| 39320049 | United States  | Study results demonstrate that rural Americans are less likely to disclose marijuana use to health care providers due to stigma, potentially impacting their medical care and health outcomes.                                                   |
-| 39222956 | United Kingdom | Study results demonstrate that current donors and MSM exhibit higher homophily towards a perceived prototypical UK blood donor, while ethnic minorities show the lowest levels, impacting donation likelihood.                                   |
-| 39194099 | Brazil         | Study results demonstrate stronger beliefs in vaccine-related conspiracy theories predict lower vaccination intention and knowledge, with minimal changes noted despite the pandemic, highlighting the need for enhanced health education.       |
-| 39148747 | United States  | Study results demonstrate that state firearm acquisition patterns in the U.S. are influenced by gun homicide rates, firearm laws, geographic proximity, and citizen ideology, affecting neighboring states.                                      |
-| 39105482 | Not specified  | Study results demonstrate that political ideologies significantly influence biodiversity outcomes, with nationalism and socialism correlating with threatened species, while democracy promotes increased protected areas in national contexts.  |
+| 39340096 | United States  | Study results demonstrate that informative explanations enhanced perceptions of mRNA booster safety, effectiveness, and willingness to vaccinate, while fostering trust in scientists across political ideologies.                               |
+| 39320049 | United States  | Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, affecting their access to holistic medical care.                                                                 |
+| 39222956 | United Kingdom | Study results demonstrate that current donors and MSM exhibit higher homophily towards the prototypical UK blood donor, which is perceived as predominantly White, impacting ethnic minorities’ participation in blood donation.                 |
+| 39194099 | Brazil         | Study results demonstrate that belief in vaccine conspiracy theories negatively impacts vaccination intentions, with no significant changes in attitudes despite the pandemic, underscoring the need for enhanced health education.              |
+| 39148747 | United States  | Study results demonstrate that state firearm acquisition patterns are influenced by gun homicide rates, strict laws, and ideologies, affecting inter-state dynamics and policies aimed at reducing firearm-related harms.                        |
+| 39105482 | Not specified  | Study results demonstrate that political ideologies like nationalism and socialism negatively impact biodiversity, while democracy positively influences protected area establishment, highlighting the need for tailored conservation policies. |
 
 ### Parallel processing & multiple annotators
 
