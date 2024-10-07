@@ -96,10 +96,6 @@
 <span>  <span class="fu">puremoe</span><span class="fu">::</span><span class="fu">get_records</span><span class="op">(</span>endpoint <span class="op">=</span> <span class="st">'pubmed_abstracts'</span>, </span>
 <span>                       cores <span class="op">=</span> <span class="fl">3</span>, </span>
 <span>                       sleep <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pmids</span> <span class="op">|&gt;</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">mutate</span><span class="op">(</span>ab <span class="op">=</span> <span class="fu">truncate_abstract_vector</span><span class="op">(</span><span class="va">abstract</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu">select</span><span class="op">(</span><span class="va">pmid</span>, <span class="va">year</span>, <span class="va">articletitle</span>, <span class="va">ab</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="5%">
@@ -138,34 +134,34 @@
 <div class="section level3">
 <h3 id="a-quick-prompt">A quick prompt<a class="anchor" aria-label="anchor" href="#a-quick-prompt"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## For the PubMed abstract provided below, provide a</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="do">## single sentence summary of the research findings</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="do">## in 30 words. Ensure that the summary is concise,</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">## starts with "Study results demonstrate," and</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## highlights the key outcomes. Also, identify the</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">## country or countries where the study was</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## conducted.</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">## Expected Output:</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">## {</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">## "country_studied": "Country or countries where</span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">## the study was conducted.",</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">## "summary": "Study results demonstrate ...</span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="do">## (summary of the research findings in 30 words)."</span></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="do">## }</span></span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="do">## Abstract:</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="do">## For the PubMed abstract provided below, provide a</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="do">## single sentence summary of the research findings</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="do">## in 30 words. Ensure that the summary is concise,</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="do">## starts with "Study results demonstrate," and</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="do">## highlights the key outcomes. Also, identify the</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="do">## country or countries where the study was</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="do">## conducted.</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="do">## Expected Output:</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="do">## {</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="do">## "country": "Country or countries where the study</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="do">## was conducted.",</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="do">## "summary": "Study results demonstrate ...</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="do">## (summary of the research findings in 30 words)."</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="do">## }</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="do">## Abstract:</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="cloud-based-llms">Cloud-based LLMs<a class="anchor" aria-label="anchor" href="#cloud-based-llms"></a>
 </h2>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">prompt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">pmids</span><span class="op">$</span><span class="va">abstract</span>, sep <span class="op">=</span> <span class="st">'\n\n'</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="single-core--single-annotator">Single core &amp; single annotator<a class="anchor" aria-label="anchor" href="#single-core--single-annotator"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">class_task1</span> <span class="op">&lt;-</span> <span class="fu">hollr</span><span class="fu">::</span><span class="fu"><a href="reference/hollr.html">hollr</a></span><span class="op">(</span></span>
 <span>  model <span class="op">=</span> <span class="st">'gpt-4o-mini'</span>,</span>
 <span>  id <span class="op">=</span> <span class="va">pmids</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
@@ -176,105 +172,67 @@
 <span>  force_json <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>  flatten_json <span class="op">=</span> <span class="cn">T</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">class_task1</span> <span class="op">|&gt;</span> <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="4%">
-<col width="5%">
-<col width="4%">
-<col width="4%">
-<col width="29%">
-<col width="53%">
+<col width="15%">
+<col width="80%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">id</th>
-<th align="left">annotator_id</th>
-<th align="right">attempts</th>
-<th align="left">success</th>
-<th align="left">country_studied</th>
+<th align="left">country</th>
 <th align="left">summary</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">39340096</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that providing safety and effectiveness explanations significantly enhanced participants’ trust in vaccine technology and willingness to receive the mRNA booster, regardless of political ideology.</td>
+<td align="left">Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly increased willingness to get boosted and improved trust in scientists among participants.</td>
 </tr>
 <tr class="even">
 <td align="left">39320049</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that rural Americans face stigma affecting their disclosure of marijuana use to healthcare providers, contrasting with urban residents who report usage more openly.</td>
+<td align="left">Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, impacting their health outcomes and effective medical care.</td>
 </tr>
 <tr class="odd">
 <td align="left">39222956</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
 <td align="left">United Kingdom</td>
-<td align="left">Study results demonstrate that current donors and MSM exhibit higher homophily to the prototypical UK blood donor, impacting ethnic minorities’ donation likelihood, highlighting recruitment strategy needs.</td>
+<td align="left">Study results demonstrate that perceptions of the prototypical UK blood donor influence donation behavior, with ethnic minorities showing the lowest homophily and higher homophily linked to greater donation commitment.</td>
 </tr>
 <tr class="even">
 <td align="left">39194099</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
 <td align="left">Brazil</td>
-<td align="left">Study results demonstrate that stronger belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, highlighting the need for health education to counter misinformation.</td>
+<td align="left">Study results demonstrate that stronger belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, while political ideology and demographics influence these beliefs over time.</td>
 </tr>
 <tr class="odd">
 <td align="left">39148747</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that firearm acquisition patterns in U.S. states are influenced by homicide rates, firearm laws, geography, and citizen ideology, affecting inter-state firearm acquisition dynamics.</td>
+<td align="left">Study results demonstrate that firearm acquisition patterns across U.S. states are influenced by gun homicide rates, firearm law strictness, and geographic and ideological factors, impacting regional policy effectiveness.</td>
 </tr>
 <tr class="even">
 <td align="left">39105482</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
-<td align="left">The study does not specify a particular country, but it investigates national regime ideology and biodiversity outcomes globally.</td>
-<td align="left">Study results demonstrate that political ideologies like nationalism and socialism adversely affect threatened species, while increased democracy enhances protected area establishment, highlighting the link between politics and biodiversity.</td>
+<td align="left">Not specified</td>
+<td align="left">Study results demonstrate that political ideologies like nationalism and socialism negatively influence threatened animal species, while democracy positively affects protected area establishment, indicating the importance of tailored conservation policies.</td>
 </tr>
 <tr class="odd">
 <td align="left">39102194</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
-<td align="left">High- and low-income countries worldwide</td>
-<td align="left">Study results demonstrate that politicization of COVID-19 led to poorer health outcomes, higher infection rates, and vaccine hesitancy among conservatives compared to the left-wing populace across diverse countries.</td>
+<td align="left">High- and low-income countries worldwide.</td>
+<td align="left">Study results demonstrate that COVID-19 politicization influenced public health compliance, with conservatives showing increased vaccine hesitancy and poorer health outcomes compared to their left-wing counterparts.</td>
 </tr>
 <tr class="even">
 <td align="left">39101909</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that pro-diversity messages in recruitment can backfire, eliciting hiring biases based on race and political ideology, potentially undermining diversity initiatives’ intended outcomes.</td>
+<td align="left">Study results demonstrate that pro-diversity messages in job recruitment can unintentionally foster hiring biases based on political ideology, affecting both conservative and liberal hiring recommendations for minorities.</td>
 </tr>
 <tr class="odd">
 <td align="left">39101906</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate significant differences in collective memory between Black and White Americans, with race-relevant events increasing following the murder of George Floyd, highlighting the malleability of collective memories.</td>
+<td align="left">Study results demonstrate notable differences in collective memory between Black and White Americans, with Black participants emphasizing race-relevant events, and memories showing temporary malleability after George Floyd’s murder.</td>
 </tr>
 <tr class="even">
 <td align="left">39093836</td>
-<td align="left">Q0qAxTCzJl</td>
-<td align="right">1</td>
-<td align="left">TRUE</td>
 <td align="left">Poland</td>
-<td align="left">Study results demonstrate public acceptance of energy sources in Poland is primarily influenced by political ideology, with environmental attitudes and economic factors also playing significant roles.</td>
+<td align="left">Study results demonstrate that political ideology significantly influences public acceptance of energy sources in Poland, alongside environmental attitudes, risk perception, and economic factors affecting energy policy support.</td>
 </tr>
 </tbody>
 </table>
@@ -282,11 +240,11 @@
 <div class="section level3">
 <h3 id="parallel-processing--multiple-annotators">Parallel processing &amp; multiple annotators<a class="anchor" aria-label="anchor" href="#parallel-processing--multiple-annotators"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">class_task2</span> <span class="op">&lt;-</span> <span class="fu">hollr</span><span class="fu">::</span><span class="fu"><a href="reference/hollr.html">hollr</a></span><span class="op">(</span></span>
 <span>  model <span class="op">=</span> <span class="st">'gpt-4o-mini'</span>,</span>
-<span>  id <span class="op">=</span> <span class="fu">hollr</span><span class="fu">::</span><span class="va">political_ideology</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
-<span>  user_message <span class="op">=</span> <span class="va">class_task_prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, </span>
+<span>  id <span class="op">=</span> <span class="va">pmids</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
+<span>  user_message <span class="op">=</span> <span class="va">prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, </span>
 <span>  cores <span class="op">=</span> <span class="fl">7</span>, </span>
 <span>  annotators <span class="op">=</span> <span class="fl">3</span>, </span>
 <span>  max_attempts <span class="op">=</span> <span class="fl">7</span>,</span>
@@ -301,40 +259,39 @@
 <div class="section level3">
 <h3 id="conda-environment">Conda environment<a class="anchor" aria-label="anchor" href="#conda-environment"></a>
 </h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Create and activate a new conda environment with Python 3.9</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> llm_base python=3.9 <span class="at">-y</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="ex">conda</span> activate llm_base</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co"># Update all packages in the environment</span></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="ex">conda</span> update <span class="at">--all</span> <span class="at">-y</span></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co"># Install required packages with conda</span></span>
-<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="ex">conda</span> install nmslib pandas numpy spacy <span class="at">-c</span> conda-forge <span class="at">-y</span></span>
-<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="ex">conda</span> install pytorch torchvision torchaudio pytorch-cuda=12.1 <span class="at">-c</span> pytorch <span class="at">-c</span> nvidia <span class="at">-y</span></span>
-<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co"># Install additional packages with pip</span></span>
-<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="ex">pip</span> install transformers packaging ninja flash-attn <span class="at">--no-build-isolation</span> accelerate protobuf auto-gptq <span class="dt">\</span></span>
-<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="st">"git+https://github.com/PanQiWei/AutoGPTQ.git@v0.6.0"</span> optimum tiktoken sentencepiece</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Create and activate a new conda environment with Python 3.9</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> llm_base python=3.9 <span class="at">-y</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="ex">conda</span> activate llm_base</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co"># Update all packages in the environment</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="ex">conda</span> update <span class="at">--all</span> <span class="at">-y</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co"># Install required packages with conda</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="ex">conda</span> install nmslib pandas numpy spacy <span class="at">-c</span> conda-forge <span class="at">-y</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="ex">conda</span> install pytorch torchvision torchaudio pytorch-cuda=12.1 <span class="at">-c</span> pytorch <span class="at">-c</span> nvidia <span class="at">-y</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co"># Install additional packages with pip</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="ex">pip</span> install transformers packaging ninja flash-attn <span class="at">--no-build-isolation</span> accelerate protobuf auto-gptq <span class="dt">\</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="st">"git+https://github.com/PanQiWei/AutoGPTQ.git@v0.6.0"</span> optimum tiktoken sentencepiece</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="reticulate">Reticulate<a class="anchor" aria-label="anchor" href="#reticulate"></a>
 </h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set environment variables and use conda environment</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html" class="external-link">Sys.setenv</a></span><span class="op">(</span>RETICULATE_PYTHON <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">miniconda_path</span>, <span class="st">"envs"</span>, <span class="va">env_name</span>, <span class="st">"bin/python"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/use_python.html" class="external-link">use_condaenv</a></span><span class="op">(</span>condaenv <span class="op">=</span> <span class="va">env_name</span>, conda <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">miniconda_path</span>, <span class="st">"bin/conda"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">llm</span> <span class="op">=</span> <span class="st">'meta-llama/Meta-Llama-3.1-8B-Instruct'</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="sequential-processing">Sequential processing<a class="anchor" aria-label="anchor" href="#sequential-processing"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">local_seq</span> <span class="op">&lt;-</span> <span class="fu">hollr</span><span class="fu">::</span><span class="fu"><a href="reference/hollr.html">hollr</a></span><span class="op">(</span></span>
 <span>  model <span class="op">=</span> <span class="va">llm</span>,</span>
-<span>  id <span class="op">=</span> <span class="fu">hollr</span><span class="fu">::</span><span class="va">political_ideology</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
-<span>  user_message <span class="op">=</span> <span class="va">class_task_prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, </span>
-<span>  <span class="co"># cores = 7, </span></span>
+<span>  id <span class="op">=</span> <span class="va">pmids</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
+<span>  user_message <span class="op">=</span> <span class="va">prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, </span>
 <span>  annotators <span class="op">=</span> <span class="fl">3</span>, </span>
 <span>  <span class="co">#max_attempts = 7,</span></span>
 <span>  force_json <span class="op">=</span> <span class="cn">F</span>,</span>
@@ -346,12 +303,12 @@
 <div class="section level3">
 <h3 id="batch-processing">Batch processing<a class="anchor" aria-label="anchor" href="#batch-processing"></a>
 </h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">batch_seq</span> <span class="op">&lt;-</span> <span class="fu">hollr</span><span class="fu">::</span><span class="fu"><a href="reference/hollr.html">hollr</a></span><span class="op">(</span></span>
 <span>  model <span class="op">=</span> <span class="va">llm</span>,</span>
-<span>  id <span class="op">=</span> <span class="fu">hollr</span><span class="fu">::</span><span class="va">political_ideology</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
-<span>  user_message <span class="op">=</span> <span class="va">class_task_prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, </span>
-<span>  <span class="co"># cores = 7, </span></span>
+<span>  id <span class="op">=</span> <span class="va">pmids</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
+<span>  user_message <span class="op">=</span> <span class="va">prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, </span>
+<span>  </span>
 <span>  annotators <span class="op">=</span> <span class="fl">3</span>, </span>
 <span>  <span class="co">#max_attempts = 7,</span></span>
 <span>  force_json <span class="op">=</span> <span class="cn">F</span>,</span>
