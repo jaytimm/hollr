@@ -96,14 +96,16 @@ class_task1 <- hollr::hollr(
   )
 ```
 
-| id       | country        | summary                                                                                                                                                                                                                             |
-|:---|:-----|:--------------------------------------------------------------|
-| 39340096 | United States  | Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly improved perceptions, willingness to vaccinate, and trust in scientists among US residents.              |
-| 39320049 | United States  | Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers, influenced by stigma, impacting their health care access and outcomes.                                            |
-| 39222956 | United Kingdom | Study results demonstrate that perceived donor prototypicality influences blood donation homophily, with current donors and MSM showing higher homophily, while ethnic minorities exhibit the lowest engagement levels.             |
-| 39194099 | Brazil         | Study results demonstrate that higher belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, emphasizing the need for enhanced health education during public health crises.              |
-| 39148747 | United States  | Study results demonstrate that firearm acquisition patterns among U.S. states are influenced by homicide rates, firearm law strictness, geographic proximity, and citizen ideology, impacting crime rates and policy effectiveness. |
-| 39105482 | Not specified  | Study results demonstrate that political ideology significantly influences biodiversity outcomes, with nationalism and socialism correlating with threatened species, while democracy boosts protected area establishment.          |
+#### Ouput
+
+| id       | country        | summary                                                                                                                                                                                                                                          |
+|:---|:----|:--------------------------------------------------------------|
+| 39340096 | United States  | Study results demonstrate that providing scientific explanations significantly enhanced perceptions of mRNA booster safety, effectiveness, and trust in scientists, ultimately increasing willingness to receive the booster among participants. |
+| 39320049 | United States  | Study results demonstrate that rural Americans are less likely to disclose marijuana use to health care providers due to stigma, potentially impacting their medical care and health outcomes.                                                   |
+| 39222956 | United Kingdom | Study results demonstrate that current donors and MSM exhibit higher homophily towards a perceived prototypical UK blood donor, while ethnic minorities show the lowest levels, impacting donation likelihood.                                   |
+| 39194099 | Brazil         | Study results demonstrate stronger beliefs in vaccine-related conspiracy theories predict lower vaccination intention and knowledge, with minimal changes noted despite the pandemic, highlighting the need for enhanced health education.       |
+| 39148747 | United States  | Study results demonstrate that state firearm acquisition patterns in the U.S. are influenced by gun homicide rates, firearm laws, geographic proximity, and citizen ideology, affecting neighboring states.                                      |
+| 39105482 | Not specified  | Study results demonstrate that political ideologies significantly influence biodiversity outcomes, with nationalism and socialism correlating with threatened species, while democracy promotes increased protected areas in national contexts.  |
 
 ### Parallel processing & multiple annotators
 
