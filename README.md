@@ -3,26 +3,27 @@
 
 # hollr
 
-An R package designed for efficient chat completion and text annotation
-using both local and cloud-based LLMs, with a focus on simplicity and
-flexibility. Key features include:
+An R package for chat completion and text annotation with both local
+LLMs and OpenAI models, emphasizing simplicity and flexibility.. Key
+features include:
 
--   **Versatile Model Access**: Interact with cloud-based or local LLMs
-    (via Python/reticulate) through a straightforward function.
+-   **Versatile Model Access**: Interact with either local LLMs (via
+    Python/reticulate) or OpenAI models through a straightforward
+    function.
 
 -   **Multiple Annotator Support**: Facilitate text annotation workflows
     with support for multiple annotators, including ensembling and
     majority voting methods.
 
 -   **Batch and Parallel Processing**: Handle multiple inputs
-    simultaneously with local LLMs and speed up tasks by utilizing
-    multiple cores for cloud-based models.
+    simultaneously, leveraging local LLMs or speeding up tasks by
+    utilizing multiple cores when working with OpenAI models.
 
--   **Consistent Output**: Ensure uniform data frame outputs regardless
-    of the model used, keeping results easily manageable.
+-   **Consistent Output**: Ensure uniform data frame outputs across
+    model types.
 
 Ideal for users looking for a simple, unified solution for text
-annotation with both local and cloud-based language models.
+annotation using both local and OpenAI language models.
 
 ## Installation
 
@@ -98,14 +99,14 @@ class_task1 <- hollr::hollr(
 
 #### Ouput
 
-| id       | country        | summary                                                                                                                                                                                                                                          |
-|:---|:----|:--------------------------------------------------------------|
-| 39340096 | United States  | Study results demonstrate that informative explanations enhanced perceptions of mRNA booster safety, effectiveness, and willingness to vaccinate, while fostering trust in scientists across political ideologies.                               |
-| 39320049 | United States  | Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, affecting their access to holistic medical care.                                                                 |
-| 39222956 | United Kingdom | Study results demonstrate that current donors and MSM exhibit higher homophily towards the prototypical UK blood donor, which is perceived as predominantly White, impacting ethnic minorities’ participation in blood donation.                 |
-| 39194099 | Brazil         | Study results demonstrate that belief in vaccine conspiracy theories negatively impacts vaccination intentions, with no significant changes in attitudes despite the pandemic, underscoring the need for enhanced health education.              |
-| 39148747 | United States  | Study results demonstrate that state firearm acquisition patterns are influenced by gun homicide rates, strict laws, and ideologies, affecting inter-state dynamics and policies aimed at reducing firearm-related harms.                        |
-| 39105482 | Not specified  | Study results demonstrate that political ideologies like nationalism and socialism negatively impact biodiversity, while democracy positively influences protected area establishment, highlighting the need for tailored conservation policies. |
+| id       | country                        | summary                                                                                                                                                                                                                             |
+|:---|:--------|:----------------------------------------------------------|
+| 39340096 | United States                  | Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly improved willingness to receive the booster and enhanced trust in scientists among participants.         |
+| 39320049 | United States                  | Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, impacting their health outcomes compared to urban residents.                                        |
+| 39222956 | United Kingdom                 | Study results demonstrate that ethnic minorities perceive blood donation as a White activity, influencing lower donation rates, while current donors and MSM show greater alignment with donor prototypes.                          |
+| 39194099 | Brazil                         | Study results demonstrate that higher belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, highlighting the urgent need for enhanced health education in public health strategies.      |
+| 39148747 | United States                  | Study results demonstrate that state policies reducing gun homicides impact firearm acquisition patterns across states, highlighting significant relationships between laws, crime rates, and mutual influences among U.S. states.  |
+| 39105482 | Not specified in the abstract. | Study results demonstrate that national political ideologies significantly influence biodiversity outcomes, with nationalism and socialism linked to threatened species, while democracy correlates with increased protected areas. |
 
 ### Parallel processing & multiple annotators
 
@@ -153,22 +154,6 @@ reticulate::use_condaenv(condaenv = env_name, conda = file.path(miniconda_path, 
 
 ``` r
 llm = 'meta-llama/Meta-Llama-3.1-8B-Instruct'
-```
-
-### Sequential processing
-
-``` r
-local_seq <- hollr::hollr(
-  model = llm,
-  id = pmids$pmid[1:10],
-  user_message = prompt[1:10], 
-  annotators = 3, 
-  #max_attempts = 7,
-  force_json = F,
-  flatten_json = F,
-  max_new_tokens = 75, 
-  batch_size = 1
-  )
 ```
 
 ### Batch processing

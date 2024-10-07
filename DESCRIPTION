@@ -1,13 +1,13 @@
 Package: hollr
 Type: Package
-Title: "A lightweight, versatile tool for text completion via local and cloud-based LLMs in R."
+Title: Unified Framework for Chat Completion and Text Annotation with Local and OpenAI Language Models
 Version: 1.0.0
-Author: Jason Timm [aut, cre]
+Authors@R: c(person("Jason", "Timm", role = c("aut", "cre"), email = "JaTimm@salud.unm.edu"))
 Maintainer: Jason Timm <JaTimm@salud.unm.edu>
-Description: A lightweight tool that provides a unified interface for text completion using local and cloud-based LLMs, with a focus on text annotation tasks.
+Description: Enables chat completion and text annotation with local and OpenAI <https://openai.com/> language models, supporting batch processing, multiple annotators, and consistent output formats.
 License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 Depends: 
     R (>= 3.5)
 Imports: 
