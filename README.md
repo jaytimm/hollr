@@ -46,11 +46,14 @@ pmids <- puremoe::search_pubmed('("political ideology"[TiAb])',
                        sleep = 1) 
 ```
 
-| pmid     | year | articletitle                                                                                      | ab                                                                                                                            |
-|:---|:--|:----------------------------|:------------------------------------|
-| 39340096 | 2024 | Messaging to Reduce Booster Hesitancy among the Fully Vaccinated.                                 | Vaccine hesitancy was a serious problem in the United States throughout the COVID-19 pandemic, due in part to the reduction … |
-| 39320049 | 2024 | Rural reticence to inform physicians of cannabis use.                                             | Over 75% of Americans have legal access to medical cannabis, though physical access is not uniform and can be difficult …     |
-| 39222956 | 2024 | The prototypical UK blood donor, homophily and blood donation: Blood donors are like you, not me. | Homophily represents the extent to which people feel others are like them and encourages the uptake of activities they feel … |
+| pmid     | year | articletitle                                                                                            | ab                                                                                                                                                               |
+|:---|:--|:-------------------------|:---------------------------------------|
+| 39340096 | 2024 | Messaging to Reduce Booster Hesitancy among the Fully Vaccinated.                                       | Vaccine hesitancy was a serious problem in the United States throughout the COVID-19 pandemic, due in part to the reduction …                                    |
+| 39320049 | 2024 | Rural reticence to inform physicians of cannabis use.                                                   | Over 75% of Americans have legal access to medical cannabis, though physical access is not uniform and can be difficult …                                        |
+| 39222956 | 2024 | The prototypical UK blood donor, homophily and blood donation: Blood donors are like you, not me.       | Homophily represents the extent to which people feel others are like them and encourages the uptake of activities they feel …                                    |
+| 39194099 | 2024 | The impact of conspiracy theories and vaccine knowledge on vaccination intention: a longitudinal study. | In this study, we analyzed associations between vaccination knowledge, vaccination intention, political ideology, and belief in conspiracy theories before and … |
+| 39148747 | 2024 | Formative reasons for state-to-state influences on firearm acquisition in the U.S.                      | Firearm-related crimes and self-inflicted harms pose a significant threat to the safety and well-being of Americans. Investigation of firearm prevalence …       |
+| 39105482 | 2024 | Role of national regime ideology for predicting biodiversity outcomes.                                  | The rapid decline of global biodiversity has engendered renewed debate about the social, economic, and political factors contributing to it. …                   |
 
 ### A quick prompt
 
@@ -83,8 +86,8 @@ prompt <- paste(p1, pmids$abstract, sep = '\n\n')
 ``` r
 class_task1 <- hollr::hollr(
   model = 'gpt-4o-mini',
-  id = pmids$pmid[1:10],
-  user_message = prompt[1:10], 
+  id = pmids$pmid[1:6],
+  user_message = prompt[1:6], 
   cores = 1, 
   annotators = 1, 
   max_attempts = 7,
@@ -93,18 +96,14 @@ class_task1 <- hollr::hollr(
   )
 ```
 
-| id       | country                                   | summary                                                                                                                                                                                                                                                          |
-|:--|:----------|:---------------------------------------------------------|
-| 39340096 | United States                             | Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly increased willingness to get boosted and improved trust in scientists among participants.                                             |
-| 39320049 | United States                             | Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, impacting their health outcomes and effective medical care.                                                                      |
-| 39222956 | United Kingdom                            | Study results demonstrate that perceptions of the prototypical UK blood donor influence donation behavior, with ethnic minorities showing the lowest homophily and higher homophily linked to greater donation commitment.                                       |
-| 39194099 | Brazil                                    | Study results demonstrate that stronger belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, while political ideology and demographics influence these beliefs over time.                                            |
-| 39148747 | United States                             | Study results demonstrate that firearm acquisition patterns across U.S. states are influenced by gun homicide rates, firearm law strictness, and geographic and ideological factors, impacting regional policy effectiveness.                                    |
-| 39105482 | Not specified                             | Study results demonstrate that political ideologies like nationalism and socialism negatively influence threatened animal species, while democracy positively affects protected area establishment, indicating the importance of tailored conservation policies. |
-| 39102194 | High- and low-income countries worldwide. | Study results demonstrate that COVID-19 politicization influenced public health compliance, with conservatives showing increased vaccine hesitancy and poorer health outcomes compared to their left-wing counterparts.                                          |
-| 39101909 | United States                             | Study results demonstrate that pro-diversity messages in job recruitment can unintentionally foster hiring biases based on political ideology, affecting both conservative and liberal hiring recommendations for minorities.                                    |
-| 39101906 | United States                             | Study results demonstrate notable differences in collective memory between Black and White Americans, with Black participants emphasizing race-relevant events, and memories showing temporary malleability after George Floyd’s murder.                         |
-| 39093836 | Poland                                    | Study results demonstrate that political ideology significantly influences public acceptance of energy sources in Poland, alongside environmental attitudes, risk perception, and economic factors affecting energy policy support.                              |
+| id       | country        | summary                                                                                                                                                                                                                             |
+|:---|:-----|:--------------------------------------------------------------|
+| 39340096 | United States  | Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly improved perceptions, willingness to vaccinate, and trust in scientists among US residents.              |
+| 39320049 | United States  | Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers, influenced by stigma, impacting their health care access and outcomes.                                            |
+| 39222956 | United Kingdom | Study results demonstrate that perceived donor prototypicality influences blood donation homophily, with current donors and MSM showing higher homophily, while ethnic minorities exhibit the lowest engagement levels.             |
+| 39194099 | Brazil         | Study results demonstrate that higher belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, emphasizing the need for enhanced health education during public health crises.              |
+| 39148747 | United States  | Study results demonstrate that firearm acquisition patterns among U.S. states are influenced by homicide rates, firearm law strictness, geographic proximity, and citizen ideology, impacting crime rates and policy effectiveness. |
+| 39105482 | Not specified  | Study results demonstrate that political ideology significantly influences biodiversity outcomes, with nationalism and socialism correlating with threatened species, while democracy boosts protected area establishment.          |
 
 ### Parallel processing & multiple annotators
 
