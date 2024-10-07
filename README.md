@@ -46,12 +46,6 @@ pmids <- puremoe::search_pubmed('("political ideology"[TiAb])',
                        sleep = 1) 
 ```
 
-``` r
-pmids |> dplyr::mutate(ab = truncate_abstract_vector(abstract, 20)) |>
-  dplyr::select(pmid, year, articletitle, ab) |> 
-  head(3) |> knitr::kable()
-```
-
 | pmid     | year | articletitle                                                                                      | ab                                                                                                                            |
 |:---|:--|:----------------------------|:------------------------------------|
 | 39340096 | 2024 | Messaging to Reduce Booster Hesitancy among the Fully Vaccinated.                                 | Vaccine hesitancy was a serious problem in the United States throughout the COVID-19 pandemic, due in part to the reduction … |
@@ -70,8 +64,8 @@ pmids |> dplyr::mutate(ab = truncate_abstract_vector(abstract, 20)) |>
     ## 
     ## Expected Output:
     ## {
-    ## "country_studied": "Country or countries where
-    ## the study was conducted.",
+    ## "country": "Country or countries where the study
+    ## was conducted.",
     ## "summary": "Study results demonstrate ...
     ## (summary of the research findings in 30 words)."
     ## }
@@ -99,30 +93,26 @@ class_task1 <- hollr::hollr(
   )
 ```
 
-``` r
-class_task1 |> knitr::kable()
-```
-
-| id       | annotator_id | attempts | success | country_studied                                                                                                                   | summary                                                                                                                                                                                                                                           |
-|:--|:---|--:|:--|:---------------------|:---------------------------------------|
-| 39340096 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate that providing safety and effectiveness explanations significantly enhanced participants’ trust in vaccine technology and willingness to receive the mRNA booster, regardless of political ideology.                    |
-| 39320049 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate that rural Americans face stigma affecting their disclosure of marijuana use to healthcare providers, contrasting with urban residents who report usage more openly.                                                    |
-| 39222956 | Q0qAxTCzJl   |        1 | TRUE    | United Kingdom                                                                                                                    | Study results demonstrate that current donors and MSM exhibit higher homophily to the prototypical UK blood donor, impacting ethnic minorities’ donation likelihood, highlighting recruitment strategy needs.                                     |
-| 39194099 | Q0qAxTCzJl   |        1 | TRUE    | Brazil                                                                                                                            | Study results demonstrate that stronger belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, highlighting the need for health education to counter misinformation.                                    |
-| 39148747 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate that firearm acquisition patterns in U.S. states are influenced by homicide rates, firearm laws, geography, and citizen ideology, affecting inter-state firearm acquisition dynamics.                                   |
-| 39105482 | Q0qAxTCzJl   |        1 | TRUE    | The study does not specify a particular country, but it investigates national regime ideology and biodiversity outcomes globally. | Study results demonstrate that political ideologies like nationalism and socialism adversely affect threatened species, while increased democracy enhances protected area establishment, highlighting the link between politics and biodiversity. |
-| 39102194 | Q0qAxTCzJl   |        1 | TRUE    | High- and low-income countries worldwide                                                                                          | Study results demonstrate that politicization of COVID-19 led to poorer health outcomes, higher infection rates, and vaccine hesitancy among conservatives compared to the left-wing populace across diverse countries.                           |
-| 39101909 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate that pro-diversity messages in recruitment can backfire, eliciting hiring biases based on race and political ideology, potentially undermining diversity initiatives’ intended outcomes.                                |
-| 39101906 | Q0qAxTCzJl   |        1 | TRUE    | United States                                                                                                                     | Study results demonstrate significant differences in collective memory between Black and White Americans, with race-relevant events increasing following the murder of George Floyd, highlighting the malleability of collective memories.        |
-| 39093836 | Q0qAxTCzJl   |        1 | TRUE    | Poland                                                                                                                            | Study results demonstrate public acceptance of energy sources in Poland is primarily influenced by political ideology, with environmental attitudes and economic factors also playing significant roles.                                          |
+| id       | country                                   | summary                                                                                                                                                                                                                                                          |
+|:--|:----------|:---------------------------------------------------------|
+| 39340096 | United States                             | Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly increased willingness to get boosted and improved trust in scientists among participants.                                             |
+| 39320049 | United States                             | Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, impacting their health outcomes and effective medical care.                                                                      |
+| 39222956 | United Kingdom                            | Study results demonstrate that perceptions of the prototypical UK blood donor influence donation behavior, with ethnic minorities showing the lowest homophily and higher homophily linked to greater donation commitment.                                       |
+| 39194099 | Brazil                                    | Study results demonstrate that stronger belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, while political ideology and demographics influence these beliefs over time.                                            |
+| 39148747 | United States                             | Study results demonstrate that firearm acquisition patterns across U.S. states are influenced by gun homicide rates, firearm law strictness, and geographic and ideological factors, impacting regional policy effectiveness.                                    |
+| 39105482 | Not specified                             | Study results demonstrate that political ideologies like nationalism and socialism negatively influence threatened animal species, while democracy positively affects protected area establishment, indicating the importance of tailored conservation policies. |
+| 39102194 | High- and low-income countries worldwide. | Study results demonstrate that COVID-19 politicization influenced public health compliance, with conservatives showing increased vaccine hesitancy and poorer health outcomes compared to their left-wing counterparts.                                          |
+| 39101909 | United States                             | Study results demonstrate that pro-diversity messages in job recruitment can unintentionally foster hiring biases based on political ideology, affecting both conservative and liberal hiring recommendations for minorities.                                    |
+| 39101906 | United States                             | Study results demonstrate notable differences in collective memory between Black and White Americans, with Black participants emphasizing race-relevant events, and memories showing temporary malleability after George Floyd’s murder.                         |
+| 39093836 | Poland                                    | Study results demonstrate that political ideology significantly influences public acceptance of energy sources in Poland, alongside environmental attitudes, risk perception, and economic factors affecting energy policy support.                              |
 
 ### Parallel processing & multiple annotators
 
 ``` r
 class_task2 <- hollr::hollr(
   model = 'gpt-4o-mini',
-  id = hollr::political_ideology$pmid[1:10],
-  user_message = class_task_prompt[1:10], 
+  id = pmids$pmid[1:10],
+  user_message = prompt[1:10], 
   cores = 7, 
   annotators = 3, 
   max_attempts = 7,
@@ -169,9 +159,8 @@ llm = 'meta-llama/Meta-Llama-3.1-8B-Instruct'
 ``` r
 local_seq <- hollr::hollr(
   model = llm,
-  id = hollr::political_ideology$pmid[1:10],
-  user_message = class_task_prompt[1:10], 
-  # cores = 7, 
+  id = pmids$pmid[1:10],
+  user_message = prompt[1:10], 
   annotators = 3, 
   #max_attempts = 7,
   force_json = F,
@@ -186,9 +175,9 @@ local_seq <- hollr::hollr(
 ``` r
 batch_seq <- hollr::hollr(
   model = llm,
-  id = hollr::political_ideology$pmid[1:10],
-  user_message = class_task_prompt[1:10], 
-  # cores = 7, 
+  id = pmids$pmid[1:10],
+  user_message = prompt[1:10], 
+  
   annotators = 3, 
   #max_attempts = 7,
   force_json = F,
