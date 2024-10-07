@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>"A lightweight, versatile tool for text completion via local and cloud-based LLMs in R." • hollr</title>
+<title>Unified Framework for Chat Completion and Text Annotation with Local and OpenAI Language Models • hollr</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="" a lightweight versatile tool for text completion via local and cloud-based llms in r.>
-<meta property="og:description" content="A lightweight tool that provides a unified interface for text completion using local and cloud-based LLMs, with a focus on text annotation tasks.">
+<script src="pkgdown.js"></script><meta property="og:title" content="Unified Framework for Chat Completion and Text Annotation with Local and OpenAI Language Models">
+<meta property="og:description" content="Enables chat completion and text annotation with local and OpenAI &lt;https://openai.com/&gt; language models, supporting batch processing, multiple annotators, and consistent output formats.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -67,14 +67,14 @@
 <div class="section level1">
 <div class="page-header"><h1 id="hollr">hollr<a class="anchor" aria-label="anchor" href="#hollr"></a>
 </h1></div>
-<p>An R package designed for efficient chat completion and text annotation using both local and cloud-based LLMs, with a focus on simplicity and flexibility. Key features include:</p>
+<p>An R package for chat completion and text annotation with both local LLMs and OpenAI models, emphasizing simplicity and flexibility.. Key features include:</p>
 <ul>
-<li><p><strong>Versatile Model Access</strong>: Interact with cloud-based or local LLMs (via Python/reticulate) through a straightforward function.</p></li>
+<li><p><strong>Versatile Model Access</strong>: Interact with either local LLMs (via Python/reticulate) or OpenAI models through a straightforward function.</p></li>
 <li><p><strong>Multiple Annotator Support</strong>: Facilitate text annotation workflows with support for multiple annotators, including ensembling and majority voting methods.</p></li>
-<li><p><strong>Batch and Parallel Processing</strong>: Handle multiple inputs simultaneously with local LLMs and speed up tasks by utilizing multiple cores for cloud-based models.</p></li>
-<li><p><strong>Consistent Output</strong>: Ensure uniform data frame outputs regardless of the model used, keeping results easily manageable.</p></li>
+<li><p><strong>Batch and Parallel Processing</strong>: Handle multiple inputs simultaneously, leveraging local LLMs or speeding up tasks by utilizing multiple cores when working with OpenAI models.</p></li>
+<li><p><strong>Consistent Output</strong>: Ensure uniform data frame outputs across model types.</p></li>
 </ul>
-<p>Ideal for users looking for a simple, unified solution for text annotation with both local and cloud-based language models.</p>
+<p>Ideal for users looking for a simple, unified solution for text annotation using both local and OpenAI language models.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -198,8 +198,8 @@
 <table class="table">
 <colgroup>
 <col width="5%">
-<col width="6%">
-<col width="87%">
+<col width="12%">
+<col width="81%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">id</th>
@@ -210,32 +210,32 @@
 <tr class="odd">
 <td align="left">39340096</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that informative explanations enhanced perceptions of mRNA booster safety, effectiveness, and willingness to vaccinate, while fostering trust in scientists across political ideologies.</td>
+<td align="left">Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly improved willingness to receive the booster and enhanced trust in scientists among participants.</td>
 </tr>
 <tr class="even">
 <td align="left">39320049</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, affecting their access to holistic medical care.</td>
+<td align="left">Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, impacting their health outcomes compared to urban residents.</td>
 </tr>
 <tr class="odd">
 <td align="left">39222956</td>
 <td align="left">United Kingdom</td>
-<td align="left">Study results demonstrate that current donors and MSM exhibit higher homophily towards the prototypical UK blood donor, which is perceived as predominantly White, impacting ethnic minorities’ participation in blood donation.</td>
+<td align="left">Study results demonstrate that ethnic minorities perceive blood donation as a White activity, influencing lower donation rates, while current donors and MSM show greater alignment with donor prototypes.</td>
 </tr>
 <tr class="even">
 <td align="left">39194099</td>
 <td align="left">Brazil</td>
-<td align="left">Study results demonstrate that belief in vaccine conspiracy theories negatively impacts vaccination intentions, with no significant changes in attitudes despite the pandemic, underscoring the need for enhanced health education.</td>
+<td align="left">Study results demonstrate that higher belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, highlighting the urgent need for enhanced health education in public health strategies.</td>
 </tr>
 <tr class="odd">
 <td align="left">39148747</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that state firearm acquisition patterns are influenced by gun homicide rates, strict laws, and ideologies, affecting inter-state dynamics and policies aimed at reducing firearm-related harms.</td>
+<td align="left">Study results demonstrate that state policies reducing gun homicides impact firearm acquisition patterns across states, highlighting significant relationships between laws, crime rates, and mutual influences among U.S. states.</td>
 </tr>
 <tr class="even">
 <td align="left">39105482</td>
-<td align="left">Not specified</td>
-<td align="left">Study results demonstrate that political ideologies like nationalism and socialism negatively impact biodiversity, while democracy positively influences protected area establishment, highlighting the need for tailored conservation policies.</td>
+<td align="left">Not specified in the abstract.</td>
+<td align="left">Study results demonstrate that national political ideologies significantly influence biodiversity outcomes, with nationalism and socialism linked to threatened species, while democracy correlates with increased protected areas.</td>
 </tr>
 </tbody>
 </table>
@@ -289,25 +289,9 @@
 <code class="sourceCode R"><span><span class="va">llm</span> <span class="op">=</span> <span class="st">'meta-llama/Meta-Llama-3.1-8B-Instruct'</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="sequential-processing">Sequential processing<a class="anchor" aria-label="anchor" href="#sequential-processing"></a>
-</h3>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">local_seq</span> <span class="op">&lt;-</span> <span class="fu">hollr</span><span class="fu">::</span><span class="fu"><a href="reference/hollr.html">hollr</a></span><span class="op">(</span></span>
-<span>  model <span class="op">=</span> <span class="va">llm</span>,</span>
-<span>  id <span class="op">=</span> <span class="va">pmids</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
-<span>  user_message <span class="op">=</span> <span class="va">prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, </span>
-<span>  annotators <span class="op">=</span> <span class="fl">3</span>, </span>
-<span>  <span class="co">#max_attempts = 7,</span></span>
-<span>  force_json <span class="op">=</span> <span class="cn">F</span>,</span>
-<span>  flatten_json <span class="op">=</span> <span class="cn">F</span>,</span>
-<span>  max_new_tokens <span class="op">=</span> <span class="fl">75</span>, </span>
-<span>  batch_size <span class="op">=</span> <span class="fl">1</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
 <h3 id="batch-processing">Batch processing<a class="anchor" aria-label="anchor" href="#batch-processing"></a>
 </h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">batch_seq</span> <span class="op">&lt;-</span> <span class="fu">hollr</span><span class="fu">::</span><span class="fu"><a href="reference/hollr.html">hollr</a></span><span class="op">(</span></span>
 <span>  model <span class="op">=</span> <span class="va">llm</span>,</span>
 <span>  id <span class="op">=</span> <span class="va">pmids</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
@@ -355,7 +339,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Jason Timm <br><small class="roles"> Maintainer </small>  </li>
+<li>Jason Timm <br><small class="roles"> Author, maintainer </small>  </li>
 </ul>
 </div>
 
