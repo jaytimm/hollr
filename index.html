@@ -100,8 +100,8 @@
 <colgroup>
 <col width="5%">
 <col width="4%">
-<col width="39%">
-<col width="50%">
+<col width="35%">
+<col width="54%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">pmid</th>
@@ -127,6 +127,24 @@
 <td align="left">2024</td>
 <td align="left">The prototypical UK blood donor, homophily and blood donation: Blood donors are like you, not me.</td>
 <td align="left">Homophily represents the extent to which people feel others are like them and encourages the uptake of activities they feel …</td>
+</tr>
+<tr class="even">
+<td align="left">39194099</td>
+<td align="left">2024</td>
+<td align="left">The impact of conspiracy theories and vaccine knowledge on vaccination intention: a longitudinal study.</td>
+<td align="left">In this study, we analyzed associations between vaccination knowledge, vaccination intention, political ideology, and belief in conspiracy theories before and …</td>
+</tr>
+<tr class="odd">
+<td align="left">39148747</td>
+<td align="left">2024</td>
+<td align="left">Formative reasons for state-to-state influences on firearm acquisition in the U.S.</td>
+<td align="left">Firearm-related crimes and self-inflicted harms pose a significant threat to the safety and well-being of Americans. Investigation of firearm prevalence …</td>
+</tr>
+<tr class="even">
+<td align="left">39105482</td>
+<td align="left">2024</td>
+<td align="left">Role of national regime ideology for predicting biodiversity outcomes.</td>
+<td align="left">The rapid decline of global biodiversity has engendered renewed debate about the social, economic, and political factors contributing to it. …</td>
 </tr>
 </tbody>
 </table>
@@ -164,8 +182,8 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">class_task1</span> <span class="op">&lt;-</span> <span class="fu">hollr</span><span class="fu">::</span><span class="fu"><a href="reference/hollr.html">hollr</a></span><span class="op">(</span></span>
 <span>  model <span class="op">=</span> <span class="st">'gpt-4o-mini'</span>,</span>
-<span>  id <span class="op">=</span> <span class="va">pmids</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>,</span>
-<span>  user_message <span class="op">=</span> <span class="va">prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, </span>
+<span>  id <span class="op">=</span> <span class="va">pmids</span><span class="op">$</span><span class="va">pmid</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>,</span>
+<span>  user_message <span class="op">=</span> <span class="va">prompt</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span>, </span>
 <span>  cores <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>  annotators <span class="op">=</span> <span class="fl">1</span>, </span>
 <span>  max_attempts <span class="op">=</span> <span class="fl">7</span>,</span>
@@ -174,9 +192,9 @@
 <span>  <span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="4%">
-<col width="15%">
-<col width="80%">
+<col width="5%">
+<col width="8%">
+<col width="86%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">id</th>
@@ -187,52 +205,32 @@
 <tr class="odd">
 <td align="left">39340096</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly increased willingness to get boosted and improved trust in scientists among participants.</td>
+<td align="left">Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly improved perceptions, willingness to vaccinate, and trust in scientists among US residents.</td>
 </tr>
 <tr class="even">
 <td align="left">39320049</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, impacting their health outcomes and effective medical care.</td>
+<td align="left">Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers, influenced by stigma, impacting their health care access and outcomes.</td>
 </tr>
 <tr class="odd">
 <td align="left">39222956</td>
 <td align="left">United Kingdom</td>
-<td align="left">Study results demonstrate that perceptions of the prototypical UK blood donor influence donation behavior, with ethnic minorities showing the lowest homophily and higher homophily linked to greater donation commitment.</td>
+<td align="left">Study results demonstrate that perceived donor prototypicality influences blood donation homophily, with current donors and MSM showing higher homophily, while ethnic minorities exhibit the lowest engagement levels.</td>
 </tr>
 <tr class="even">
 <td align="left">39194099</td>
 <td align="left">Brazil</td>
-<td align="left">Study results demonstrate that stronger belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, while political ideology and demographics influence these beliefs over time.</td>
+<td align="left">Study results demonstrate that higher belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, emphasizing the need for enhanced health education during public health crises.</td>
 </tr>
 <tr class="odd">
 <td align="left">39148747</td>
 <td align="left">United States</td>
-<td align="left">Study results demonstrate that firearm acquisition patterns across U.S. states are influenced by gun homicide rates, firearm law strictness, and geographic and ideological factors, impacting regional policy effectiveness.</td>
+<td align="left">Study results demonstrate that firearm acquisition patterns among U.S. states are influenced by homicide rates, firearm law strictness, geographic proximity, and citizen ideology, impacting crime rates and policy effectiveness.</td>
 </tr>
 <tr class="even">
 <td align="left">39105482</td>
 <td align="left">Not specified</td>
-<td align="left">Study results demonstrate that political ideologies like nationalism and socialism negatively influence threatened animal species, while democracy positively affects protected area establishment, indicating the importance of tailored conservation policies.</td>
-</tr>
-<tr class="odd">
-<td align="left">39102194</td>
-<td align="left">High- and low-income countries worldwide.</td>
-<td align="left">Study results demonstrate that COVID-19 politicization influenced public health compliance, with conservatives showing increased vaccine hesitancy and poorer health outcomes compared to their left-wing counterparts.</td>
-</tr>
-<tr class="even">
-<td align="left">39101909</td>
-<td align="left">United States</td>
-<td align="left">Study results demonstrate that pro-diversity messages in job recruitment can unintentionally foster hiring biases based on political ideology, affecting both conservative and liberal hiring recommendations for minorities.</td>
-</tr>
-<tr class="odd">
-<td align="left">39101906</td>
-<td align="left">United States</td>
-<td align="left">Study results demonstrate notable differences in collective memory between Black and White Americans, with Black participants emphasizing race-relevant events, and memories showing temporary malleability after George Floyd’s murder.</td>
-</tr>
-<tr class="even">
-<td align="left">39093836</td>
-<td align="left">Poland</td>
-<td align="left">Study results demonstrate that political ideology significantly influences public acceptance of energy sources in Poland, alongside environmental attitudes, risk perception, and economic factors affecting energy policy support.</td>
+<td align="left">Study results demonstrate that political ideology significantly influences biodiversity outcomes, with nationalism and socialism correlating with threatened species, while democracy boosts protected area establishment.</td>
 </tr>
 </tbody>
 </table>
