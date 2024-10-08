@@ -4,8 +4,7 @@
 # hollr
 
 An R package for chat completion and text annotation with both local
-LLMs and OpenAI models, emphasizing simplicity and flexibility.. Key
-features include:
+LLMs and OpenAI models. Key features include:
 
 -   **Versatile Model Access**: Interact with either local LLMs (via
     Python/reticulate) or OpenAI models through a straightforward
@@ -21,9 +20,6 @@ features include:
 
 -   **Consistent Output**: Ensure uniform data frame outputs across
     model types.
-
-Ideal for users looking for a simple, unified solution for text
-annotation using both local and OpenAI language models.
 
 ## Installation
 
@@ -47,14 +43,14 @@ pmids <- puremoe::search_pubmed('("political ideology"[TiAb])',
                        sleep = 1) 
 ```
 
-| pmid     | year | articletitle                                                                                            | ab                                                                                                                                                               |
-|:---|:--|:-------------------------|:---------------------------------------|
-| 39340096 | 2024 | Messaging to Reduce Booster Hesitancy among the Fully Vaccinated.                                       | Vaccine hesitancy was a serious problem in the United States throughout the COVID-19 pandemic, due in part to the reduction …                                    |
-| 39320049 | 2024 | Rural reticence to inform physicians of cannabis use.                                                   | Over 75% of Americans have legal access to medical cannabis, though physical access is not uniform and can be difficult …                                        |
-| 39222956 | 2024 | The prototypical UK blood donor, homophily and blood donation: Blood donors are like you, not me.       | Homophily represents the extent to which people feel others are like them and encourages the uptake of activities they feel …                                    |
-| 39194099 | 2024 | The impact of conspiracy theories and vaccine knowledge on vaccination intention: a longitudinal study. | In this study, we analyzed associations between vaccination knowledge, vaccination intention, political ideology, and belief in conspiracy theories before and … |
-| 39148747 | 2024 | Formative reasons for state-to-state influences on firearm acquisition in the U.S.                      | Firearm-related crimes and self-inflicted harms pose a significant threat to the safety and well-being of Americans. Investigation of firearm prevalence …       |
-| 39105482 | 2024 | Role of national regime ideology for predicting biodiversity outcomes.                                  | The rapid decline of global biodiversity has engendered renewed debate about the social, economic, and political factors contributing to it. …                   |
+| pmid     | year | articletitle                                                                                                                                          | ab                                                                                                                                                               |
+|:--|:--|:-------------------------------|:----------------------------------|
+| 39374517 | 2024 | Racial Minorities Face Discrimination From Across the Political Spectrum When Seeking to Form Ties on Social Media: Evidence From a Field Experiment. | We conducted a preregistered field experiment examining racial discrimination in tie formation on social media. We randomly assigned research accounts …         |
+| 39340096 | 2024 | Messaging to Reduce Booster Hesitancy among the Fully Vaccinated.                                                                                     | Vaccine hesitancy was a serious problem in the United States throughout the COVID-19 pandemic, due in part to the reduction …                                    |
+| 39320049 | 2024 | Rural reticence to inform physicians of cannabis use.                                                                                                 | Over 75% of Americans have legal access to medical cannabis, though physical access is not uniform and can be difficult …                                        |
+| 39222956 | 2024 | The prototypical UK blood donor, homophily and blood donation: Blood donors are like you, not me.                                                     | Homophily represents the extent to which people feel others are like them and encourages the uptake of activities they feel …                                    |
+| 39194099 | 2024 | The impact of conspiracy theories and vaccine knowledge on vaccination intention: a longitudinal study.                                               | In this study, we analyzed associations between vaccination knowledge, vaccination intention, political ideology, and belief in conspiracy theories before and … |
+| 39148747 | 2024 | Formative reasons for state-to-state influences on firearm acquisition in the U.S.                                                                    | Firearm-related crimes and self-inflicted harms pose a significant threat to the safety and well-being of Americans. Investigation of firearm prevalence …       |
 
 ### A quick prompt
 
@@ -99,14 +95,14 @@ class_task1 <- hollr::hollr(
 
 #### Ouput
 
-| id       | country                        | summary                                                                                                                                                                                                                             |
-|:---|:--------|:----------------------------------------------------------|
-| 39340096 | United States                  | Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly improved willingness to receive the booster and enhanced trust in scientists among participants.         |
-| 39320049 | United States                  | Study results demonstrate that rural Americans are less likely to disclose marijuana use to healthcare providers due to stigma, impacting their health outcomes compared to urban residents.                                        |
-| 39222956 | United Kingdom                 | Study results demonstrate that ethnic minorities perceive blood donation as a White activity, influencing lower donation rates, while current donors and MSM show greater alignment with donor prototypes.                          |
-| 39194099 | Brazil                         | Study results demonstrate that higher belief in vaccine conspiracy theories correlates with lower vaccination intention and knowledge, highlighting the urgent need for enhanced health education in public health strategies.      |
-| 39148747 | United States                  | Study results demonstrate that state policies reducing gun homicides impact firearm acquisition patterns across states, highlighting significant relationships between laws, crime rates, and mutual influences among U.S. states.  |
-| 39105482 | Not specified in the abstract. | Study results demonstrate that national political ideologies significantly influence biodiversity outcomes, with nationalism and socialism linked to threatened species, while democracy correlates with increased protected areas. |
+| id       | country        | summary                                                                                                                                                                                                                                |
+|:---|:-----|:--------------------------------------------------------------|
+| 39374517 | United States  | Study results demonstrate racial discrimination in social media tie formation, with individuals less likely to reciprocate ties with Black accounts compared to White ones, regardless of political orientation.                       |
+| 39340096 | United States  | Study results demonstrate that providing scientific explanations about mRNA booster safety and effectiveness significantly improved willingness to get boosted, trust in scientists, and perceptions across political ideology groups. |
+| 39320049 | United States  | Study results demonstrate that rural Pennsylvanians are less likely to disclose marijuana use to healthcare providers due to stigma, potentially impacting their health outcomes and care quality.                                     |
+| 39222956 | United Kingdom | Study results demonstrate current blood donors and MSM show higher homophily with the prototypical UK donor, while ethnic minorities and recipients exhibit lower homophily, influencing donation likelihood.                          |
+| 39194099 | Brazil         | Study results demonstrate that increased belief in vaccine conspiracy theories correlates with decreased vaccination intention and knowledge, highlighting the need for targeted health education in Brazil.                           |
+| 39148747 | United States  | Study results demonstrate that U.S. states’ firearm acquisition patterns co-evolve with crime rates and laws, indicating that stricter laws and lower homicides can reduce inter-state acquisition influences.                         |
 
 ### Parallel processing & multiple annotators
 
